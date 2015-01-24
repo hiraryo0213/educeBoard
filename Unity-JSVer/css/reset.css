@@ -1,0 +1,14 @@
+@charset "utf-8";
+html, body, section, article, figure, figcaption, header, footer, aside, div, ul, ol, li, dl, dt, dd, p, img, input, textarea, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font: normal 13px/1.7 "Hiragino Kaku Gothic ProN", Meiryo, "MS PGothic", sans-serif;
+}
+
+ul, ol, li {
+  list-style: none;
+}

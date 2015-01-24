@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/educeboard_body.css">
+</head>
+<body>
+	<div id="wrapper">
+		<header id="header">
+			<h1>
+				<a href="#">えでゅーすぼーど</a>
+			</h1>
+			<nav>
+				<ul>
+					<li><a href="#">TOP</a></li>
+					<li><a href="#">セッション選択</a></li>
+					<li><a href="#">ログアウト</a></li>
+				</ul>
+			</nav>
+		</header>
+		<div id="login" aria-hidden="false">
+			<div class="mdLoginForm">
+				<dl class="elIdSelect">
+					<dt class="elTitle">コース</dt>
+					<dd class="elItem">
+						<div class="elSelectButton" aria-activedescendant="">
+							<a href="#" id="pulldownBtn1" data-pullDown aria-controles="pulldown1" role="button">コースを選択</a>
+						</div>
+						<ul id="pulldown1" aria-expanded="false">
+							<!-- <li><a href="#">hogehoge</a></li>
+							<li><a href="#">hogehogehogehogehogehogehogehoge</a></li>
+							<li><a href="#">hogehoge</a></li>
+							<li><a href="#">hogehoge</a></li>
+							<li><a href="#">hogehoge</a></li> -->
+						</ul>
+					</dd>
+					<dt class="elTitle">名前</dt>
+					<dd class="elItem">
+						<div class="elSelectButton" aria-activedescendant="">
+							<a href="#" id="pulldownBtn2" data-pullDown aria-controles="pulldown2" role="button">名前を選択</a>
+						</div>
+						<ul id="pulldown2" aria-expanded="false">
+							<!-- <li><a href="#">hogehoge</a></li>
+							<li><a href="#">hogehoge</a></li>
+							<li><a href="#">hogehoge</a></li>
+							<li><a href="#">hogehoge</a></li>
+							<li><a href="#">hogehoge</a></li> -->
+						</ul>
+					</dd>
+					<dt class="elTitle">パスワード</dt>
+					<dd class="elItem">
+						<div class="elPassword"><input type="password" disabled></div>
+					</dd>
+				</dl>
+				<div class="elLoginButton" aria-activedescendant="">
+					<a href="#" id="loginButton" data-libDialog aria-controles="movieSelect">ログイン</a>
+					<!-- <a href="#" id="loginButton">ログイン</a> -->
+				</div>
+			</div>
+		</div>
+		<div id="movieSelect" aria-hidden="true" role="dialog">
+			<section class="mdMovieSelect">
+				<header class="elHeader">
+					<h1>シミュレーション一覧</h1>
+				</header>
+				<div class="elItem">
+					<ul class="elSimulationList" data-listExpand>
+						<!-- <li data-listExpand-level="0">
+							<dl>
+								<dt><a href="" role="button" aria-controles="expand1" aria-selected="false">sim1</a></dt>
+								<dd aria-expanded="false" id="expand1">
+									<ul class="elSessionList">
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand1-1" aria-selected="false">session1</a></dt>
+												<dd aria-expanded="false" id="expand1-1">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand1-2" aria-selected="false">session2</a></dt>
+												<dd aria-expanded="false" id="expand1-2">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+														<li>
+															<p><a href="">trial2</a></p>
+														</li>
+														<li>
+															<p><a href="">trial3</a></p>
+														</li>
+														<li>
+															<p><a href="">trial4</a></p>
+														</li>
+														<li>
+															<p><a href="">trial5</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand1-3" aria-selected="false">session3</a></dt>
+												<dd aria-expanded="false" id="expand1-3">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+														<li>
+															<p><a href="">trial2</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand1-4" aria-selected="false">session4</a></dt>
+												<dd aria-expanded="false" id="expand1-4">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+														<li>
+															<p><a href="">trial2</a></p>
+														</li>
+														<li>
+															<p><a href="">trial3</a></p>
+														</li>
+														<li>
+															<p><a href="">trial4</a></p>
+														</li>
+														<li>
+															<p><a href="">trial5</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand1-5" aria-selected="false">session5</a></dt>
+												<dd aria-expanded="false" id="expand1-5">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+														<li>
+															<p><a href="">trial2</a></p>
+														</li>
+														<li>
+															<p><a href="">trial3</a></p>
+														</li>
+														<li>
+															<p><a href="">trial4</a></p>
+														</li>
+														<li>
+															<p><a href="">trial5</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand1-6" aria-selected="false">session6</a></dt>
+												<dd aria-expanded="false" id="expand1-6">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+														<li>
+															<p><a href="">trial2</a></p>
+														</li>
+														<li>
+															<p><a href="">trial3</a></p>
+														</li>
+														<li>
+															<p><a href="">trial4</a></p>
+														</li>
+														<li>
+															<p><a href="">trial5</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+									</ul>
+								</dd>
+							</dl>
+						</li>
+						<li data-listExpand-level="0">
+							<dl>
+								<dt><a href="" role="button" aria-controles="expand2" aria-selected="false">sim2</a></dt>
+								<dd aria-expanded="false" id="expand2">
+									<ul class="elSessionList">
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand2-1" aria-selected="false">session1</a></dt>
+												<dd aria-expanded="false" id="expand2-1">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+														<li>
+															<p><a href="">trial2</a></p>
+														</li>
+														<li>
+															<p><a href="">trial3</a></p>
+														</li>
+														<li>
+															<p><a href="">trial4</a></p>
+														</li>
+														<li>
+															<p><a href="">trial5</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand2-2" aria-selected="false">session2</a></dt>
+												<dd aria-expanded="false" id="expand2-2">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+														<li>
+															<p><a href="">trial2</a></p>
+														</li>
+														<li>
+															<p><a href="">trial3</a></p>
+														</li>
+														<li>
+															<p><a href="">trial4</a></p>
+														</li>
+														<li>
+															<p><a href="">trial5</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand2-3" aria-selected="false">session3</a></dt>
+												<dd aria-expanded="false" id="expand2-3">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+														<li>
+															<p><a href="">trial2</a></p>
+														</li>
+														<li>
+															<p><a href="">trial3</a></p>
+														</li>
+														<li>
+															<p><a href="">trial4</a></p>
+														</li>
+														<li>
+															<p><a href="">trial5</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand2-4" aria-selected="false">session4</a></dt>
+												<dd aria-expanded="false" id="expand2-4">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+														<li>
+															<p><a href="">trial2</a></p>
+														</li>
+														<li>
+															<p><a href="">trial3</a></p>
+														</li>
+														<li>
+															<p><a href="">trial4</a></p>
+														</li>
+														<li>
+															<p><a href="">trial5</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand2-5" aria-selected="false">session5</a></dt>
+												<dd aria-expanded="false" id="expand2-5">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+														<li>
+															<p><a href="">trial2</a></p>
+														</li>
+														<li>
+															<p><a href="">trial3</a></p>
+														</li>
+														<li>
+															<p><a href="">trial4</a></p>
+														</li>
+														<li>
+															<p><a href="">trial5</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand2-6" aria-selected="false">session6</a></dt>
+												<dd aria-expanded="false" id="expand2-6">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+														<li>
+															<p><a href="">trial2</a></p>
+														</li>
+														<li>
+															<p><a href="">trial3</a></p>
+														</li>
+														<li>
+															<p><a href="">trial4</a></p>
+														</li>
+														<li>
+															<p><a href="">trial5</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+									</ul>
+								</dd>
+							</dl>
+						</li>
+						<li data-listExpand-level="0">
+							<dl>
+								<dt><a href="" role="button" aria-controles="expand3" aria-selected="false">sim3</a></dt>
+								<dd aria-expanded="false" id="expand3">
+									<ul class="elSessionList">
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand3-1" aria-selected="false">session1</a></dt>
+												<dd aria-expanded="false" id="expand3-1">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+														<li>
+															<p><a href="">trial2</a></p>
+														</li>
+														<li>
+															<p><a href="">trial3</a></p>
+														</li>
+														<li>
+															<p><a href="">trial4</a></p>
+														</li>
+														<li>
+															<p><a href="">trial5</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand3-2" aria-selected="false">session2</a></dt>
+												<dd aria-expanded="false" id="expand3-2">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+														<li>
+															<p><a href="">trial2</a></p>
+														</li>
+														<li>
+															<p><a href="">trial3</a></p>
+														</li>
+														<li>
+															<p><a href="">trial4</a></p>
+														</li>
+														<li>
+															<p><a href="">trial5</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand3-3" aria-selected="false">session3</a></dt>
+												<dd aria-expanded="false" id="expand3-3">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+														<li>
+															<p><a href="">trial2</a></p>
+														</li>
+														<li>
+															<p><a href="">trial3</a></p>
+														</li>
+														<li>
+															<p><a href="">trial4</a></p>
+														</li>
+														<li>
+															<p><a href="">trial5</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand3-4" aria-selected="false">session4</a></dt>
+												<dd aria-expanded="false" id="expand3-4">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+														<li>
+															<p><a href="">trial2</a></p>
+														</li>
+														<li>
+															<p><a href="">trial3</a></p>
+														</li>
+														<li>
+															<p><a href="">trial4</a></p>
+														</li>
+														<li>
+															<p><a href="">trial5</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand3-5" aria-selected="false">session5</a></dt>
+												<dd aria-expanded="false" id="expand3-5">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+														<li>
+															<p><a href="">trial2</a></p>
+														</li>
+														<li>
+															<p><a href="">trial3</a></p>
+														</li>
+														<li>
+															<p><a href="">trial4</a></p>
+														</li>
+														<li>
+															<p><a href="">trial5</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+										<li data-listExpand-level="1">
+											<dl>
+												<dt><a href="" role="button" aria-controles="expand3-6" aria-selected="false">session6</a></dt>
+												<dd aria-expanded="false" id="expand3-6">
+													<ul class="elTrialList">
+														<li>
+															<p><a href="">trial1</a></p>
+														</li>
+														<li>
+															<p><a href="">trial2</a></p>
+														</li>
+														<li>
+															<p><a href="">trial3</a></p>
+														</li>
+														<li>
+															<p><a href="">trial4</a></p>
+														</li>
+														<li>
+															<p><a href="">trial5</a></p>
+														</li>
+													</ul>
+												</dd>
+											</dl>
+										</li>
+									</ul>
+								</dd>
+							</dl>
+						</li> -->
+					</ul>
+				</div>
+			</section>
+		</div>
+		<div id="educeboard" aria-hidden="true">
+			<div id="educeboardMovie">
+				<div id="unityPlayer">
+					<!-- <div class="missing">
+						<a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
+							<img alt="Unity Web Player. Install now!" src="http://webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
+						</a>
+					</div>
+					<div class="broken">
+						<a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now! Restart your browser after install.">
+							<img alt="Unity Web Player. Install now! Restart your browser after install." src="http://webplayer.unity3d.com/installation/getunityrestart.png" width="193" height="63" />
+						</a>
+					</div> -->
+				</div>
+				<div id="Player">
+					<div class="mdSeekbar">
+						<div class="elTimeLength"></div>
+						<div class="elTimePosition"></div>
+					</div>
+					<div class="mdController">
+						<ul>
+							<li>
+								<ul class="elPlayButton" data-playStatus="true">
+									<li data-playBtnName="play" class="elPlay" aria-hidden="false"><a href="#">play</a></li>
+									<li data-playBtnName="stop" class="elStop" aria-hidden="true"><a href="#">Stop</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="elVolumeTrigger">
+									<span></span>
+								</a>
+								<div class="elVolume">
+									<div class="elVolumeBar">
+										<div class="elVolumeLevel"></div>
+									</div>
+									<div class="elVolumePosition"></div>
+								</div>
+							</li>
+							<li class="elTimeView">
+								<span>88:88:88</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="commentArea">
+				<div class="elInputComment">
+					<div class="elTextArea">
+						<textarea>あああああ</textarea>
+					</div>
+					<ul class="elButton">
+						<li class="elSubmit"><a data-testUnityButton href="#">投稿</a></li>
+						<li class="elMovieControl"><a href="#">再生</a></li>
+					</ul>
+				</div>
+				<div class="elCommentList">
+					<ul>
+						<li class="elNowComment">
+							<dl>
+								<dt class="elComment">あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10あああああああああ10あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10あああああああああ10あああああああああ10あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10あああああああああ10あああああああああ10あああああああああ10あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="elComment">あああああああああ10</dt>
+								<dd class="elUser">hogehgoe</dd>
+								<dd class="elTimeStamp">88:88:88</dd>
+							</dl>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<footer>
+			<p>
+				<small>Copyright (C) 2012-2014 mochi-lab. All rights reserved.</small>
+			</p>
+		</footer>
+	</div>
+	<!--script src="http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject.js"></script-->
+	<script src="./unity/UnityObject2.js"></script>
+	<script src="./js/jquery-1.11.1.min.js"></script>
+	<script src="./js/pullDown.js"></script>
+	<script src="./js/libDialog.js"></script>
+	<script src="./js/listExpand.js"></script>
+	<script src="./js/educeboardDataLoad.js"></script>
+	<script src="./js/unitySendData.js"></script>
+	<script type="text/javascript">
+			/*var config = {
+				width: 540, 
+				height: 405,
+				params: { enableDebugging:"0" }
+				
+			};
+			var u = new UnityObject2(config);
+
+			jQuery(function() {
+
+				var $missingScreen = jQuery("#unityPlayer").find(".missing");
+				var $brokenScreen = jQuery("#unityPlayer").find(".broken");
+				$missingScreen.hide();
+				$brokenScreen.hide();
+				
+				u.observeProgress(function (progress) {
+					switch(progress.pluginStatus) {
+						case "broken":
+							$brokenScreen.find("a").click(function (e) {
+								e.stopPropagation();
+								e.preventDefault();
+								u.installPlugin();
+								return false;
+							});
+							$brokenScreen.show();
+						break;
+						case "missing":
+							$missingScreen.find("a").click(function (e) {
+								e.stopPropagation();
+								e.preventDefault();
+								u.installPlugin();
+								return false;
+							});
+							$missingScreen.show();
+						break;
+						case "installed":
+							$missingScreen.remove();
+						break;
+						case "first":
+						break;
+					}
+				});
+				u.initPlugin(jQuery("#unityPlayer")[0], "./unity/EduceBoard.unity3d");
+			});*/
+		</script>
+	<script>
+		// unityObject.embedUnity("unityPlayer", "./unity/EduceBoard.unity3d", 540, 405);
+		// console.log(unityObject.getObjectById("unityPlayer").SendMessage);
+
+		var config = {
+			width: 540, 
+			height: 405,
+			params: { enableDebugging:"0" }
+			
+		}
+		unityObject = new UnityObject2(config);
+
+		unityObject.initPlugin($('#unityPlayer')[0],'./unity/EduceBoard.unity3d');
+		
+
+		$('#login').educeboardDataLoad({
+			unityObject:unityObject
+			,courseLoaded:function(){
+				$('#pulldownBtn1[data-pullDown]').pullDown();
+			}
+			,userLoaded:function(){
+				$('#pulldownBtn2[data-pullDown]').pullDown();
+			}
+			,beforeAuth:function(){
+				
+			}
+			,authSuccess:function(){
+				$('[data-libDialog]').libDialog({
+					setEvent:false
+				});
+			}
+			,authFail:function(){
+				$('[data-libDialog]').libDialog('destroy');
+				$('[data-libDialog]').libDialog({
+					setEvent:false
+					,closeAfter:function(){
+						$('#login').educeboardDataLoad('simulationRemove');
+					}
+				});
+			}
+			,simulationLoaded:function(){
+				$('[data-libDialog]').libDialog('showDialog');
+				$('[data-listExpand]').listExpand();
+				$('[data-unitySendData]').unitySendData();
+			}
+			,idResult:function(){
+				// getUnity().SendMessage("Loader", "GetID", "hoge1");
+				// unityObject.getUnity().SendMessage("Loader", "GetID", "hoge");
+				$('[data-libDialog]').libDialog('closeDialog');
+			}
+		});
+
+		function SayHoge(arg){
+			alert(arg);
+		}
+
+		// $('[data-testUnityButton]').click(function(e){
+		// 	e.preventDefault();
+		// 	console.log('unityTest');
+		// 	unityObject.getUnity().SendMessage("Loader", "GetID", "hoge");
+		// })
+	</script>
+</body>
+</html>
