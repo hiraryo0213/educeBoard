@@ -1,0 +1,28 @@
+{
+  "name": "searchStores",
+  "version": "1.0.0",
+  "description": "educeBoard",
+  "main": "Gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ryhiraya",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^1.8.3",
+    "gulp-concat": "^2.4.2",
+    "gulp-csscomb": "^3.0.3",
+    "gulp-filter": "^1.0.2",
+    "gulp-imagemin": "^2.0.0",
+    "gulp-inject-string": "0.0.2",
+    "gulp-pleeease": "^1.1.0",
+    "gulp-plumber": "^0.6.6",
+    "gulp-prompt": "^0.1.1",
+    "gulp-replace": "^0.5.0",
+    "gulp-ruby-sass": "^0.7.1",
+    "gulp-strip-debug": "^1.0.2",
+    "gulp-uglify": "^1.0.1",
+    "rimraf": "^2.2.8"
+  },
+  "dependencies": {}
+}
