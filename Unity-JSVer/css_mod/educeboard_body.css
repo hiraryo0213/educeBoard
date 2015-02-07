@@ -1,6 +1,6 @@
-@charset "utf-8";
 body {
   position: relative;
+  margin: 0;
 }
 body .elPulldownHide {
   position: absolute;
@@ -8,6 +8,7 @@ body .elPulldownHide {
   height: 100%;
   background: #fff;
   opacity: 0.2;
+  filter: alpha(opacity=20);
   top: 0;
   left: 0;
 }
@@ -30,7 +31,8 @@ body .elPulldownHide {
   top: 50%;
   margin-top: -39.5px;
   background: url("../images/logo.png") no-repeat 50% 50%;
-  background-size: 100% auto;
+  -webkit-background-size: 100% auto;
+          background-size: 100% auto;
   text-indent: 100%;
   overflow: hidden;
   white-space: nowrap;
@@ -108,6 +110,7 @@ body .elPulldownHide {
 #wrapper #login .mdLoginForm .elItem .elSelectButton:not([aria-activedescendant*="pulldownBtn"]) a {
   pointer-events: none;
   opacity: 0.5;
+  filter: alpha(opacity=50);
 }
 #wrapper #login .mdLoginForm .elItem .elSelectButton a {
   display: block;
@@ -130,15 +133,15 @@ body .elPulldownHide {
   background: #fff;
   z-index: 9999;
   -webkit-transition: all ease-out .3s;
-  -moz-transition: all ease-out .3s;
-  -ms-transition: all ease-out .3s;
   transition: all ease-out .3s;
-  box-shadow: 2px 2px 5px #777;
+  -webkit-box-shadow: 2px 2px 5px #777;
+          box-shadow: 2px 2px 5px #777;
 }
 #wrapper #login .mdLoginForm .elItem ul[aria-expanded="false"] {
   overflow: hidden;
   height: 0px;
   opacity: 0;
+  filter: alpha(opacity=0);
 }
 #wrapper #login .mdLoginForm .elItem li {
   border-bottom: 1px solid #aaa;
@@ -176,6 +179,7 @@ body .elPulldownHide {
 #wrapper #login .elLoginButton:not([aria-activedescendant*="loginButton"]) a {
   pointer-events: none;
   opacity: 0.5;
+  filter: alpha(opacity=50);
 }
 #wrapper #login .elLoginButton a {
   display: block;
@@ -189,13 +193,16 @@ body .elPulldownHide {
   color: #333;
   font-weight: bold;
   text-align: center;
-  box-shadow: 2px 2px 5px #777;
+  -webkit-box-shadow: 2px 2px 5px #777;
+          box-shadow: 2px 2px 5px #777;
 }
 #wrapper #login .elLoginButton a:hover {
   opacity: .7;
+  filter: alpha(opacity=70);
 }
 #wrapper #login .elLoginButton a:active {
   opacity: .9;
+  filter: alpha(opacity=90);
 }
 #wrapper #movieSelect {
   position: fixed;
@@ -206,10 +213,13 @@ body .elPulldownHide {
   left: 0;
   z-index: 9997;
   opacity: 1;
-  transition: all ease-out .2s;
+  filter: alpha(opacity=100);
+  -webkit-transition: all ease-out .2s;
+          transition: all ease-out .2s;
 }
 #wrapper #movieSelect[aria-hidden="true"] {
   opacity: 0;
+  filter: alpha(opacity=0);
   height: 0;
   overflow: hidden;
   top: 50%;
@@ -219,6 +229,7 @@ body .elPulldownHide {
   width: 100%;
   height: 100%;
   opacity: 0;
+  filter: alpha(opacity=0);
   background: #fff;
   top: 0;
   left: 0;
@@ -232,7 +243,6 @@ body .elPulldownHide {
   top: 10%;
   padding-top: 50px;
   border: 1px solid #333;
-  -moz-box-shadow: 0px 0px 10px 5px #555;
   -webkit-box-shadow: 0px 0px 10px 5px #555;
   box-shadow: 0px 0px 10px 5px #555;
 }
@@ -262,7 +272,6 @@ body .elPulldownHide {
   overflow: hidden;
 }
 #wrapper #movieSelect .mdMovieSelect .elItem .elSimulationList > li dt {
-  -moz-box-shadow: 0px 0px 10px 0px #666;
   -webkit-box-shadow: 0px 0px 10px 0px #666;
   box-shadow: 0px 0px 10px 0px #666;
 }
@@ -280,13 +289,12 @@ body .elPulldownHide {
 #wrapper #movieSelect .mdMovieSelect .elItem .elSimulationList > li dd {
   overflow: hidden;
   -webkit-transition: all ease-out .3s;
-  -moz-transition: all ease-out .3s;
-  -ms-transition: all ease-out .3s;
   transition: all ease-out .3s;
 }
 #wrapper #movieSelect .mdMovieSelect .elItem .elSimulationList > li dd[aria-expanded="false"] {
   height: 0;
   opacity: 0;
+  filter: alpha(opacity=0);
 }
 #wrapper #movieSelect .mdMovieSelect .elItem .elSessionList {
   padding: 15px;
@@ -299,7 +307,6 @@ body .elPulldownHide {
   margin: 0;
 }
 #wrapper #movieSelect .mdMovieSelect .elItem .elSessionList li dt {
-  -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
@@ -316,6 +323,7 @@ body .elPulldownHide {
 #wrapper #movieSelect .mdMovieSelect .elItem .elSessionList li dd[aria-expanded="false"] {
   height: 0;
   opacity: 0;
+  filter: alpha(opacity=0);
 }
 #wrapper #movieSelect .mdMovieSelect .elItem .elTrialList {
   margin: 0;
@@ -330,7 +338,6 @@ body .elPulldownHide {
   border: none;
 }
 #wrapper #movieSelect .mdMovieSelect .elItem .elTrialList li dt {
-  -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
@@ -402,12 +409,11 @@ body .elPulldownHide {
   width: 6px;
   height: 6px;
   border: 7px solid #ddd;
-  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
   margin-top: -10px;
   margin-left: -10px;
   background: #777;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
   border-radius: 10px;
   top: 50%;
   left: 30%;
@@ -419,7 +425,7 @@ body .elPulldownHide {
 #wrapper #educeboard #educeboardMovie #Player .mdController ul {
   height: 100%;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController ul::after {
+#wrapper #educeboard #educeboardMovie #Player .mdController ul:after {
   content: "";
   display: block;
   clear: both;
@@ -452,7 +458,7 @@ body .elPulldownHide {
 #wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li[aria-hidden="true"] {
   display: none;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elPlay a::before, #wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elPlay li.elStop a::after, #wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elStop li.elPlay a::after {
+#wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elPlay a:before, #wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elPlay li.elStop a:after, #wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elStop li.elPlay a:after {
   content: "";
   position: absolute;
   width: 0;
@@ -464,7 +470,7 @@ body .elPulldownHide {
   top: 50%;
   left: 50%;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elStop a::before, #wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elStop a::after {
+#wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elStop a:before, #wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elStop a:after {
   content: "";
   display: block;
   width: 6px;
@@ -475,7 +481,7 @@ body .elPulldownHide {
   top: 50%;
   left: 35%;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elStop a::after {
+#wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elStop a:after {
   left: auto;
   right: 35%;
 }
@@ -488,7 +494,7 @@ body .elPulldownHide {
   background: #333;
   z-index: 1;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elVolumeTrigger::before {
+#wrapper #educeboard #educeboardMovie #Player .mdController li .elVolumeTrigger:before {
   content: "";
   display: block;
   position: absolute;
@@ -499,7 +505,7 @@ body .elPulldownHide {
   top: 50%;
   left: 0;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elVolumeTrigger::after {
+#wrapper #educeboard #educeboardMovie #Player .mdController li .elVolumeTrigger:after {
   content: "";
   display: block;
   position: absolute;
@@ -517,30 +523,26 @@ body .elPulldownHide {
   height: inherit;
   position: relative;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elVolumeTrigger span::before {
+#wrapper #educeboard #educeboardMovie #Player .mdController li .elVolumeTrigger span:before {
   content: "";
   display: block;
   width: 12px;
   height: 12px;
   border: 3px solid transparent;
   border-right: 3px solid #ddd;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
   border-radius: 12px;
   position: absolute;
   margin-top: -9px;
   top: 50%;
   right: 7px;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elVolumeTrigger span::after {
+#wrapper #educeboard #educeboardMovie #Player .mdController li .elVolumeTrigger span:after {
   content: "";
   display: block;
   width: 25px;
   height: 25px;
   border: 3px solid transparent;
   border-right: 3px solid #ddd;
-  -moz-border-radius: 25px;
-  -webkit-border-radius: 25px;
   border-radius: 25px;
   position: absolute;
   margin-top: -15px;
@@ -557,10 +559,9 @@ body .elPulldownHide {
   background: #333;
   position: absolute;
   bottom: -100px;
-  -moz-border-radius: 10px 10px 0 0;
-  -webkit-border-radius: 10px;
   border-radius: 10px 10px 0 0;
-  transition: bottom 0.3s ease-out;
+  -webkit-transition: bottom 0.3s ease-out;
+          transition: bottom 0.3s ease-out;
   z-index: 0;
 }
 #wrapper #educeboard #educeboardMovie #Player .mdController li .elVolume .elVolumeBar {
@@ -588,12 +589,11 @@ body .elPulldownHide {
   width: 6px;
   height: 6px;
   border: 7px solid #ddd;
-  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
   margin-top: -10px;
   margin-left: -10px;
   background: #777;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
   border-radius: 10px;
   top: 50%;
   left: 50%;
@@ -651,13 +651,16 @@ body .elPulldownHide {
   height: 40px;
   background: #62BB7F;
   border-radius: 3px;
-  box-shadow: 0px 0px 3px #555;
+  -webkit-box-shadow: 0px 0px 3px #555;
+          box-shadow: 0px 0px 3px #555;
 }
 #wrapper #educeboard #commentArea .elInputComment .elButton .elSubmit:hover {
   opacity: .5;
+  filter: alpha(opacity=50);
 }
 #wrapper #educeboard #commentArea .elInputComment .elButton .elSubmit:active {
   opacity: .8;
+  filter: alpha(opacity=80);
 }
 #wrapper #educeboard #commentArea .elInputComment .elButton .elSubmit a {
   display: block;
@@ -679,12 +682,9 @@ body .elPulldownHide {
   border-top: 5px solid #aaa;
 }
 #wrapper #educeboard #commentArea .elCommentList ul {
-  -webkit-transition: transform ease-out 0.4s;
-  -moz-transition: transform ease-out 0.4s;
-  -ms-transition: transform ease-out 0.4s;
+  -webkit-transition: -webkit-transform ease-out 0.4s;
   transition: transform ease-out 0.4s;
   -webkit-transform: translateY(0px);
-  -moz-transform: translateY(0px);
   -ms-transform: translateY(0px);
   transform: translateY(0px);
 }
@@ -697,7 +697,6 @@ body .elPulldownHide {
 }
 #wrapper #educeboard #commentArea .elCommentList li.elNowComment {
   -webkit-animation: nowCommentAnimation .4s ease-in infinite alternate;
-  -moz-animation: nowCommentAnimation .4s ease-in infinite alternate;
   -ms-animation: nowCommentAnimation .4s ease-in infinite alternate;
   animation: nowCommentAnimation .4s ease-in infinite alternate;
 }
@@ -733,14 +732,6 @@ body .elPulldownHide {
 }
 
 @-webkit-keyframes nowCommentAnimation {
-  0% {
-    background: #fff;
-  }
-  100% {
-    background: #ffc;
-  }
-}
-@-moz-keyframes nowCommentAnimation {
   0% {
     background: #fff;
   }

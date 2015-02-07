@@ -430,7 +430,7 @@ pullDown
 
 								var resultID = $(e.target).data().id;
 
-								console.log(options.unityObject);
+								console.log(options.unityObject.getUnity);
 								options.unityObject.getUnity().SendMessage("Loader", "GetSID", resultID.sessionId);
 								options.unityObject.getUnity().SendMessage("Loader", "GetTID", resultID.trialId);
 

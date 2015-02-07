@@ -63,7 +63,7 @@ gulp.task('sass',function(){
 	// エラーが発生してもwatchを動かしたままにするためのもの
 	.pipe(plumber())
 	// プロパティの順序並び替え
-	.pipe(cssComb())
+	// .pipe(cssComb())
 	// sassをコンパイル
 	.pipe(sass({
 	style:'expanded'

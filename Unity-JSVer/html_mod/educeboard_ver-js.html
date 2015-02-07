@@ -20,7 +20,7 @@
 				</ul>
 			</nav>
 		</header>
-		<div id="login" aria-hidden="false">
+		<div id="login" aria-hidden="true">
 			<div class="mdLoginForm">
 				<dl class="elIdSelect">
 					<dt class="elTitle">コース</dt>
@@ -509,24 +509,13 @@
 				</div>
 			</section>
 		</div>
-		<div id="educeboard" aria-hidden="true">
+		<div id="educeboard" aria-hidden="false">
 			<div id="educeboardMovie">
-				<div id="unityPlayer">
-					<!-- <div class="missing">
-						<a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
-							<img alt="Unity Web Player. Install now!" src="http://webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
-						</a>
-					</div>
-					<div class="broken">
-						<a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now! Restart your browser after install.">
-							<img alt="Unity Web Player. Install now! Restart your browser after install." src="http://webplayer.unity3d.com/installation/getunityrestart.png" width="193" height="63" />
-						</a>
-					</div> -->
-				</div>
+				<div id="unityPlayer"></div>
 				<div id="Player">
-					<div class="mdSeekbar">
-						<div class="elTimeLength"></div>
-						<div class="elTimePosition"></div>
+					<div class="mdSeekbar" data-seekBar>
+						<div class="elTimeLength" data-seekBar-parts="timeLenght"></div>
+						<div class="elTimePosition" data-seekBar-parts="position"></div>
 					</div>
 					<div class="mdController">
 						<ul>
@@ -717,62 +706,15 @@
 		</footer>
 	</div>
 	<!--script src="http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject.js"></script-->
-	<script src="../unity/UnityObject2.js"></script>
+	<script src="../js/UnityObject2.js"></script>
 	<script src="../js/jquery-1.11.1.min.js"></script>
 	<script src="../js/pullDown.js"></script>
 	<script src="../js/libDialog.js"></script>
 	<script src="../js/listExpand.js"></script>
 	<script src="../js/educeboardDataLoad.js"></script>
+	<script src="../js/seekBar.js"></script>
 	<script src="../js/unitySendData.js"></script>
-	<script type="text/javascript">
-			/*var config = {
-				width: 540, 
-				height: 405,
-				params: { enableDebugging:"0" }
-				
-			};
-			var u = new UnityObject2(config);
-
-			jQuery(function() {
-
-				var $missingScreen = jQuery("#unityPlayer").find(".missing");
-				var $brokenScreen = jQuery("#unityPlayer").find(".broken");
-				$missingScreen.hide();
-				$brokenScreen.hide();
-				
-				u.observeProgress(function (progress) {
-					switch(progress.pluginStatus) {
-						case "broken":
-							$brokenScreen.find("a").click(function (e) {
-								e.stopPropagation();
-								e.preventDefault();
-								u.installPlugin();
-								return false;
-							});
-							$brokenScreen.show();
-						break;
-						case "missing":
-							$missingScreen.find("a").click(function (e) {
-								e.stopPropagation();
-								e.preventDefault();
-								u.installPlugin();
-								return false;
-							});
-							$missingScreen.show();
-						break;
-						case "installed":
-							$missingScreen.remove();
-						break;
-						case "first":
-						break;
-					}
-				});
-				u.initPlugin(jQuery("#unityPlayer")[0], "./unity/EduceBoard.unity3d");
-			});*/
-		</script>
 	<script>
-		// unityObject.embedUnity("unityPlayer", "./unity/EduceBoard.unity3d", 540, 405);
-		// console.log(unityObject.getObjectById("unityPlayer").SendMessage);
 
 		var config = {
 			width: 540, 
@@ -782,7 +724,7 @@
 		}
 		unityObject = new UnityObject2(config);
 
-		unityObject.initPlugin($('#unityPlayer')[0],'./unity/EduceBoard.unity3d');
+		unityObject.initPlugin($('#unityPlayer')[0],'../unity/EduceBoard.unity3d');
 		
 
 		$('#login').educeboardDataLoad({
@@ -822,15 +764,11 @@
 			}
 		});
 
+		$('[data-seekBar]').seekBar();
+
 		function SayHoge(arg){
 			alert(arg);
 		}
-
-		// $('[data-testUnityButton]').click(function(e){
-		// 	e.preventDefault();
-		// 	console.log('unityTest');
-		// 	unityObject.getUnity().SendMessage("Loader", "GetID", "hoge");
-		// })
 	</script>
 </body>
 </html>
