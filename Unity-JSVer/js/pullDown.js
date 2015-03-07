@@ -98,7 +98,7 @@ pullDown
 			$this.off('.' + namespace);
 			$pulldownLi.off('.' + namespace);
 			// 隠す
-			options.$pulldown.attr('aria-expanded',true);
+			// options.$pulldown.attr('aria-expanded',true);
 
 		}
 	};

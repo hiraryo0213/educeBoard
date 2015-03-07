@@ -40,6 +40,8 @@ libDialog
 				// dataコピー
 				var $this = $(this)
 				,options = $this.data(namespace);
+
+				console.log('initialize libDialog');
 				
 				methods.prepare.apply($this);
 
@@ -126,6 +128,8 @@ libDialog
 		,destroy:function(){
 			var $this = $(this)
 			,options = $this.data(namespace);
+
+			console.log(options)
 
 			$this.off('.' + namespace);
 			options.$closeOverlay.off('.' + namespace).remove();

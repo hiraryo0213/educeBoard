@@ -156,6 +156,7 @@ gulp.task('jsmin', function(){
 
 	gulp.src(jsFilePath[0] + 'js/' + jsFilePath[1])
 	// console.logを削除
+	.pipe(plumber())
 	.pipe(stripDebug())
 	// minify化
 	.pipe(uglify())

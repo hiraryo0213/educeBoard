@@ -17,7 +17,7 @@ margin:0;
 	}
 }
 #wrapper{
-margin:0 auto;
+margin:0px auto;
 width:1000px;
 overflow: hidden;
 
@@ -681,7 +681,7 @@ overflow: hidden;
 							margin-left:-3px;
 							white-space: nowrap;
 							text-indent: 100%;
-							overflow: hidden;
+							// overflow: hidden;
 
 								.elVolumeLevel{
 								width:6px;
@@ -691,25 +691,25 @@ overflow: hidden;
 								left:0;
 								background: #d00;
 								}
-							}
 
-							.elVolumePosition{
-							position:absolute;
-							// border*2 + width(or height) = 20px の円
-							width:6px;
-							height:6px;
-							border:7px solid $highlightColor;
-							box-sizing:content-box;
+								.elVolumePosition{
+								position:absolute;
+								// border*2 + width(or height) = 20px の円
+								width:6px;
+								height:6px;
+								border:7px solid $highlightColor;
+								box-sizing:content-box;
 
-							margin:{
-								top:-1 * (6px + (7px * 2)) / 2;
-								left:-1 * (6px + (7px * 2)) / 2;
-							};
-							background:#777;
-							@include border-radius(10px);
-							top:50%;
-							left:50%;
-							cursor: pointer;
+								margin:{
+									top:-1 * (6px + (7px * 2)) / 2;
+									left:-1 * (6px + (7px * 2)) / 2;
+								};
+								background:#777;
+								@include border-radius(10px);
+								top:50%;
+								left:50%;
+								cursor: pointer;
+								}
 							}
 						}
 

@@ -47,7 +47,8 @@ pullDown
 						,cid : null
 					}
 					,authParameter : {
-						uid : null
+						xml : 1
+						,uid : null
 						,pwd : null
 					}
 
@@ -285,6 +286,9 @@ pullDown
 
 			options.$loginButton.parents('[aria-activedescendant]').attr('aria-activedescendant',options.pwdButtonID);
 
+			options.$loginButton.off('.' + namespace);
+			options.$pwdInputObj.off('.' + namespace);
+
 			options.$loginButton.on('click.' + namespace, loginHandler);
 			options.$pwdInputObj.on('keypress.' + namespace, function(e){
 				if(e.which == 13){
@@ -306,15 +310,20 @@ pullDown
 					,data : options.authParameter
 				})
 				.done(function(data){
-					if(data == "false"){
+					var loginFlag = $(data).find('Auth').text();
+					if(loginFlag == "false"){
 						// $this.attr('aria-hidden',true);
 						methods.simulationLoader.apply($this);
+
+						// options.$loginButton.off('.' + namespace);
+						// options.$pwdInputObj.off('.' + namespace).val('');
 
 						methods.applyCallback.apply([$this,'authSuccess']);
 						
 					}
 					else{
 						methods.applyCallback.apply([$this,'authFail']);
+						
 						alert('ログインに失敗しました。');
 						return false;
 					}

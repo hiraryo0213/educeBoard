@@ -513,9 +513,9 @@
 			<div id="educeboardMovie">
 				<div id="unityPlayer"></div>
 				<div id="Player">
-					<div class="mdSeekbar" data-seekBar>
+					<div class="mdSeekbar" data-seekBar data-libDragAndDrop>
 						<div class="elTimeLength" data-seekBar-parts="timeLenght"></div>
-						<div class="elTimePosition" data-seekBar-parts="position"></div>
+						<div class="elTimePosition" data-seekBar-parts="position" data-libDragAndDrop-parts="dragObject"></div>
 					</div>
 					<div class="mdController">
 						<ul>
@@ -530,10 +530,10 @@
 									<span></span>
 								</a>
 								<div class="elVolume">
-									<div class="elVolumeBar">
+									<div class="elVolumeBar" data-libDragAndDrop>
 										<div class="elVolumeLevel"></div>
+										<div class="elVolumePosition" data-libDragAndDrop-parts="dragObject"></div>
 									</div>
-									<div class="elVolumePosition"></div>
 								</div>
 							</li>
 							<li class="elTimeView">
@@ -713,18 +713,19 @@
 	<script src="../js/listExpand.js"></script>
 	<script src="../js/educeboardDataLoad.js"></script>
 	<script src="../js/seekBar.js"></script>
+	<script src="../js/libDragAndDrop1.0.js"></script>
 	<script src="../js/unitySendData.js"></script>
 	<script>
 
-		var config = {
-			width: 540, 
-			height: 405,
-			params: { enableDebugging:"0" }
+		// var config = {
+		// 	width: 540, 
+		// 	height: 405,
+		// 	params: { enableDebugging:"0" }
 			
-		}
-		unityObject = new UnityObject2(config);
+		// }
+		// unityObject = new UnityObject2(config);
 
-		unityObject.initPlugin($('#unityPlayer')[0],'../unity/EduceBoard.unity3d');
+		// unityObject.initPlugin($('#unityPlayer')[0],'../unity/EduceBoard.unity3d');
 		
 
 		$('#login').educeboardDataLoad({
@@ -736,12 +737,12 @@
 				$('#pulldownBtn2[data-pullDown]').pullDown();
 			}
 			,beforeAuth:function(){
-				
-			}
-			,authSuccess:function(){
 				$('[data-libDialog]').libDialog({
 					setEvent:false
 				});
+			}
+			,authSuccess:function(){
+
 			}
 			,authFail:function(){
 				$('[data-libDialog]').libDialog('destroy');
@@ -764,7 +765,8 @@
 			}
 		});
 
-		$('[data-seekBar]').seekBar();
+		$('[data-libDragAndDrop].mdSeekbar').libDragAndDrop({Xmode:true});
+		$('[data-libDragAndDrop].elVolumeBar').libDragAndDrop({Ymode:true});
 
 		function SayHoge(arg){
 			alert(arg);
