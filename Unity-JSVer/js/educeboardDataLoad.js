@@ -21,9 +21,7 @@ pullDown
 
 				// オプションをセット
 				$(this).data(namespace, $.extend(true, {
-					unityObject:null
-
-					,courseURL : 'http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/loginCourseList.php'
+					courseURL : 'http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/loginCourseList.php'
 					,userURL : 'http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/loginCourseMemberList.php'
 					,authURL : 'http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/loginAuth.php'
 					,simulationURL : 'http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/showSessionList.php'
@@ -54,8 +52,8 @@ pullDown
 
 					,$simulationList : $('[data-listExpand]')
 
-					,courseButtonID : 'pulldownBtn1'
-					,userButtonID : 'pulldownBtn2'
+					,courseButtonID : 'coursePulldownButton'
+					,userButtonID : 'namePulldownButton'
 					,pwdButtonID : 'loginButton'
 
 					,pwdObjClass : 'elPassword'
@@ -99,6 +97,8 @@ pullDown
 				options.courseButtonText = options.$coursePulldownBtn.text();
 				options.coursePulldownID = options.$coursePulldownBtn.attr('aria-controles');
 				options.$coursePulldownObj = $this.find('#' + options.coursePulldownID);
+
+				console.log(options.$coursePulldownObj);
 
 				options.$userPulldownBtn = $this.find('#' + options.userButtonID);
 				options.userButtonText = options.$userPulldownBtn.text();
@@ -423,7 +423,7 @@ pullDown
 							,trialId = $trial.find('trial_id').text()
 							,timestamp = $trial.find('timestamp').text()
 
-							,$trialLi = $('<li><p><a href="#" data-unitySendData /></p></li>')
+							,$trialLi = $('<li><p><a href="#" data-unitySyncData-parts="sendID" /></p></li>')
 
 							,$a = $trialLi.find('a');
 
@@ -439,9 +439,7 @@ pullDown
 
 								var resultID = $(e.target).data().id;
 
-								console.log(options.unityObject.getUnity);
-								options.unityObject.getUnity().SendMessage("Loader", "GetSID", resultID.sessionId);
-								options.unityObject.getUnity().SendMessage("Loader", "GetTID", resultID.trialId);
+								
 
 								// educeboardプレイヤー表示
 								$('#educeboard').attr('aria-hidden',false);

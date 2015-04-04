@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="../css_mod/educeboard_body.css">
 </head>
 <body>
-	<div id="wrapper">
+	<div id="wrapper" data-unitySyncData>
 		<header id="header">
 			<h1>
 				<a href="#">えでゅーすぼーど</a>
@@ -20,15 +20,15 @@
 				</ul>
 			</nav>
 		</header>
-		<div id="login" aria-hidden="true">
+		<div id="login" aria-hidden="false">
 			<div class="mdLoginForm">
 				<dl class="elIdSelect">
 					<dt class="elTitle">コース</dt>
 					<dd class="elItem">
 						<div class="elSelectButton" aria-activedescendant="">
-							<a href="#" id="pulldownBtn1" data-pullDown aria-controles="pulldown1" role="button">コースを選択</a>
+							<a href="#" id="coursePulldownButton" data-pullDown aria-controles="courcePulldown" role="button">コースを選択</a>
 						</div>
-						<ul id="pulldown1" aria-expanded="false">
+						<ul id="courcePulldown" aria-expanded="false">
 							<!-- <li><a href="#">hogehoge</a></li>
 							<li><a href="#">hogehogehogehogehogehogehogehoge</a></li>
 							<li><a href="#">hogehoge</a></li>
@@ -39,9 +39,9 @@
 					<dt class="elTitle">名前</dt>
 					<dd class="elItem">
 						<div class="elSelectButton" aria-activedescendant="">
-							<a href="#" id="pulldownBtn2" data-pullDown aria-controles="pulldown2" role="button">名前を選択</a>
+							<a href="#" id="namePulldownButton" data-pullDown aria-controles="namePulldown" role="button">名前を選択</a>
 						</div>
-						<ul id="pulldown2" aria-expanded="false">
+						<ul id="namePulldown" aria-expanded="false">
 							<!-- <li><a href="#">hogehoge</a></li>
 							<li><a href="#">hogehoge</a></li>
 							<li><a href="#">hogehoge</a></li>
@@ -509,20 +509,20 @@
 				</div>
 			</section>
 		</div>
-		<div id="educeboard" aria-hidden="false">
+		<div id="educeboard" aria-hidden="true">
 			<div id="educeboardMovie">
 				<div id="unityPlayer"></div>
 				<div id="Player">
 					<div class="mdSeekbar" data-seekBar data-libDragAndDrop>
-						<div class="elTimeLength" data-seekBar-parts="timeLenght"></div>
+						<div class="elTimeLength" data-seekBar-parts="timeLenght" data-unitySyncData-parts="timeLength"></div>
 						<div class="elTimePosition" data-seekBar-parts="position" data-libDragAndDrop-parts="dragObject"></div>
 					</div>
 					<div class="mdController">
 						<ul>
 							<li>
-								<ul class="elPlayButton" data-playStatus="true">
-									<li data-playBtnName="play" class="elPlay" aria-hidden="false"><a href="#">play</a></li>
-									<li data-playBtnName="stop" class="elStop" aria-hidden="true"><a href="#">Stop</a></li>
+								<ul class="elPlayButton" data-playStatus="true" data-unitySyncData-parts="playButton">
+									<li class="elPlay" aria-hidden="false" data-unitySyncData-parts="play"><a href="#">play</a></li>
+									<li class="elStop" aria-hidden="true" data-unitySyncData-parts="pause"><a href="#">Stop</a></li>
 								</ul>
 							</li>
 							<li>
@@ -537,7 +537,7 @@
 								</div>
 							</li>
 							<li class="elTimeView">
-								<span>88:88:88</span>
+								<span data-unitySyncData-parts="timeView">88:88:88</span>
 							</li>
 						</ul>
 					</div>
@@ -549,13 +549,13 @@
 						<textarea>あああああ</textarea>
 					</div>
 					<ul class="elButton">
-						<li class="elSubmit"><a data-testUnityButton href="#">投稿</a></li>
+						<li class="elSubmit"><a href="#">投稿</a></li>
 						<li class="elMovieControl"><a href="#">再生</a></li>
 					</ul>
 				</div>
-				<div class="elCommentList">
+				<div class="elCommentList" data-educeboardDataLoad-parts="commentArea">
 					<ul>
-						<li class="elNowComment">
+						<!-- <li class="elNowComment">
 							<dl>
 								<dt class="elComment">あああああああああ10</dt>
 								<dd class="elUser">hogehgoe</dd>
@@ -694,7 +694,7 @@
 								<dd class="elUser">hogehgoe</dd>
 								<dd class="elTimeStamp">88:88:88</dd>
 							</dl>
-						</li>
+						</li> -->
 					</ul>
 				</div>
 			</div>
@@ -714,27 +714,29 @@
 	<script src="../js/educeboardDataLoad.js"></script>
 	<script src="../js/seekBar.js"></script>
 	<script src="../js/libDragAndDrop1.0.js"></script>
-	<script src="../js/unitySendData.js"></script>
+	<script src="../js/unitySyncData.js"></script>
 	<script>
 
-		// var config = {
-		// 	width: 540, 
-		// 	height: 405,
-		// 	params: { enableDebugging:"0" }
+		var config = {
+			width: 540, 
+			height: 405,
+			params: { enableDebugging:"0" }
 			
-		// }
-		// unityObject = new UnityObject2(config);
+		}
 
-		// unityObject.initPlugin($('#unityPlayer')[0],'../unity/EduceBoard.unity3d');
-		
+		unityObject = new UnityObject2(config);
+		unityObject.initPlugin($('#unityPlayer')[0],'../unity/EduceBoard.unity3d');
+
+
+		// $('[data-pullDown').pullDown();
 
 		$('#login').educeboardDataLoad({
 			unityObject:unityObject
 			,courseLoaded:function(){
-				$('#pulldownBtn1[data-pullDown]').pullDown();
+				$('#coursePulldownButton[data-pullDown]').pullDown();
 			}
 			,userLoaded:function(){
-				$('#pulldownBtn2[data-pullDown]').pullDown();
+				$('#namePulldownButton[data-pullDown]').pullDown();
 			}
 			,beforeAuth:function(){
 				$('[data-libDialog]').libDialog({
@@ -756,7 +758,9 @@
 			,simulationLoaded:function(){
 				$('[data-libDialog]').libDialog('showDialog');
 				$('[data-listExpand]').listExpand();
-				$('[data-unitySendData]').unitySendData();
+				$('[data-unitySyncData]').unitySyncData({
+					unityObject:unityObject
+				});
 			}
 			,idResult:function(){
 				// getUnity().SendMessage("Loader", "GetID", "hoge1");
@@ -764,6 +768,11 @@
 				$('[data-libDialog]').libDialog('closeDialog');
 			}
 		});
+
+		// $('[data-unitySyncData]').unitySyncData({
+		// 	unityObject:unityObject
+		// });
+
 
 		$('[data-libDragAndDrop].mdSeekbar').libDragAndDrop({Xmode:true});
 		$('[data-libDragAndDrop].elVolumeBar').libDragAndDrop({Ymode:true});

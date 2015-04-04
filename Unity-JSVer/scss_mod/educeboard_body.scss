@@ -122,7 +122,7 @@ overflow: hidden;
 				background:#ccc;
 				border:1px solid #aaa;
 
-					&:not([aria-activedescendant*="pulldownBtn"]){
+					&:not([aria-activedescendant*="PulldownButton"]){
 						a{
 						pointer-events: none;
 						opacity:0.5;
@@ -462,6 +462,13 @@ overflow: hidden;
 		overflow: hidden;
 		float:left;
 
+			&:hover{
+				#Player{
+				transform:translateY(0px);
+				opacity:1;
+				}
+			}
+
 			#Player{
 			background:#333;
 			position:absolute;
@@ -469,6 +476,9 @@ overflow: hidden;
 			height:45px;
 			bottom:0;
 			left:0;
+			opacity:0;
+			transform:translateY(45px);
+			transition:all .2s ease-in-out;
 			$highlightColor:#ddd;
 
 				.mdSeekbar{
@@ -499,6 +509,7 @@ overflow: hidden;
 					top:50%;
 					left:30%;
 					cursor: pointer;
+					z-index:9999;
 					}
 				}
 
