@@ -25,13 +25,15 @@ pullDown
 					,userURL : 'http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/loginCourseMemberList.php'
 					,authURL : 'http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/loginAuth.php'
 					,simulationURL : 'http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/showSessionList.php'
+					,commentURL : 'http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/showComments.php'
 
 					,courseButtonText : null
 					,userButtonText : null
 
-					,IDobj : {
+					,basicInfoObj : {
 						cid : null
 						,uid : null
+						,uname : null
 						,simid : null
 						,sid : null
 						,tid : null
@@ -49,8 +51,13 @@ pullDown
 						,uid : null
 						,pwd : null
 					}
+					,commentParameter : {
+						xml : 1
+						,session_id : null
+						,tid : null
+					}
 
-					,$simulationList : $('[data-listExpand]')
+					,$simulationList : $('[data-' + namespace + '-parts="simulationList"]')
 
 					,courseButtonID : 'coursePulldownButton'
 					,userButtonID : 'namePulldownButton'
@@ -61,6 +68,10 @@ pullDown
 					,simulationListClass : 'elSimulationList'
 					,sessionListClass : 'elSessionList'
 					,trialListClass : 'elTrialList'
+
+					,commentClass : 'elComment'
+					,commentUserClass : 'elUser'
+					,commentTimeClass : 'elTimeStamp'
 
 					,coursePulldownID : null
 					,userPulldownID : null
@@ -75,6 +86,11 @@ pullDown
 
 					,$loginButtonObj : null
 
+					,$commentArea : $('[data-' + namespace + '-parts="commentArea"]')
+
+					,$loginInfo : $('[data-' + namespace + '-parts="loginInfo"]')
+					,$username : $('[data-' + namespace + '-parts="username"]')
+
 					// takeIDの次のmethodの切替用
 					,nextMethod : 'course'
 
@@ -84,7 +100,9 @@ pullDown
 					,beforeAuth : null
 					,authSuccess : null
 					,authFail : null
+					,userLogout: null
 					,simulationLoaded : null
+					,commentLoaded : null
 					,idResult : null
 
 				}, method));
@@ -111,6 +129,7 @@ pullDown
 
 
 				methods.courseLoader.apply($this);
+				methods.userLogout.apply($this);
 
 			});
 		}
@@ -196,6 +215,9 @@ pullDown
 				// callback実行
 				methods.applyCallback.apply([$this, 'courseLoaded']);
 
+			})
+			.fail(function(){
+				alert('コースリストの取得に失敗しました（・∀・）');
 			});
 
 		}
@@ -221,7 +243,7 @@ pullDown
 				options.nextMethod = 'authLogin';
 			});
 
-			options.userParameter.cid = options.IDobj.cid;
+			options.userParameter.cid = options.basicInfoObj.cid;
 
 			// ajax開始
 			$.ajax({
@@ -245,9 +267,9 @@ pullDown
 				var userArrayLength = userData['uid'].length
 				,liArray = []
 				,i;
-				// ulに入るliを作成。cidをdata属性で持っておく
+				// ulに入るliを作成。uidをdata属性で持っておく
 				for(i = 0; i < userArrayLength; i++){
-					liArray[i] = $('<li />').attr('data-uid' ,userData['uid'][i]);
+					liArray[i] = $('<li />').attr('data-uid' ,userData['uid'][i]).attr('data-uname',userData['uname'][i]);
 				}
 				// liにaタグを格納
 				for(i = 0; i < userArrayLength; i++){
@@ -268,6 +290,9 @@ pullDown
 
 				// callback実行
 				methods.applyCallback.apply([$this, 'userLoaded']);
+			})
+			.fail(function(){
+				alert('ユーザリストの取得に失敗しました（・∀・）');
 			});
 		}
 
@@ -280,7 +305,7 @@ pullDown
 
 			methods.applyCallback.apply([$this,'beforeAuth'])
 
-			options.authParameter.uid = options.IDobj.uid;
+			options.authParameter.uid = options.basicInfoObj.uid;
 
 			options.$pwdInputObj.removeAttr('disabled').select();
 
@@ -312,11 +337,18 @@ pullDown
 				.done(function(data){
 					var loginFlag = $(data).find('Auth').text();
 					if(loginFlag == "false"){
-						// $this.attr('aria-hidden',true);
-						methods.simulationLoader.apply($this);
+						
 
-						// options.$loginButton.off('.' + namespace);
-						// options.$pwdInputObj.off('.' + namespace).val('');
+						options.$loginInfo.attr('aria-hidden',false);
+						options.$username.text(options.basicInfoObj.uname);
+
+						$body.data('educeboardBasicInfo',{
+							uid:options.basicInfoObj.uid
+							,uname:options.basicInfoObj.uname
+						});
+
+
+						methods.simulationLoader.apply($this);
 
 						methods.applyCallback.apply([$this,'authSuccess']);
 						
@@ -324,11 +356,37 @@ pullDown
 					else{
 						methods.applyCallback.apply([$this,'authFail']);
 						
-						alert('ログインに失敗しました。');
+						alert('パスワードが違うのかもしれません！');
+
+						options.$pwdInputObj.select();
+
 						return false;
 					}
+				})
+				.fail(function(){
+					alert('ログイン情報の取得に失敗しました（・∀・）');
 				});
 			}
+
+		}
+
+		/********************
+		userLogout
+		********************/
+		,userLogout:function(){
+			var $this = $(this)
+			,options = $this.data(namespace)
+			,$loginInfo = options.$loginInfo
+			,$username = options.$username;
+
+			$this.on('click.' + namespace, '[data-' + namespace + '-parts="logout"]', function(e){
+				var $target = $(this);
+
+				$loginInfo.attr('aria-hidden','true');
+				$username.text('');
+
+				methods.applyCallback.apply([$this,'userLogout']);
+			})
 
 		}
 
@@ -339,8 +397,8 @@ pullDown
 			var $this = $(this)
 			,options = $this.data(namespace)
 			,parameter = {
-				cid : options.IDobj.cid
-				,uid : options.IDobj.uid
+				cid : options.basicInfoObj.cid
+				,uid : options.basicInfoObj.uid
 			};
 			console.log(parameter);
 
@@ -354,13 +412,17 @@ pullDown
 				$listDom = options.$simulationList;
 				$listDom.empty();
 
+				console.log($listDom);
+
 				options.$pwdInputObj.val('');
+
+				var $simulation;
 
 				// simulation
 				$(xml).find('simulation').each(function(i){
 
 					// eachのthisを格納
-					var $simulation = $(this)
+					$simulation = $(this)
 
 					// simulationのidとnameを取得
 					,simId = $simulation.find('sim_id').text()
@@ -439,13 +501,17 @@ pullDown
 
 								var resultID = $(e.target).data().id;
 
-								
+								options.basicInfoObj.sid = parseInt(resultID.sessionId);
+								options.basicInfoObj.tid = parseInt(resultID.trialId);
 
 								// educeboardプレイヤー表示
 								$('#educeboard').attr('aria-hidden',false);
 
 								// ログイン画面非表示
 								$('#login').attr('aria-hidden',true);
+
+								// commentLoader実行
+								methods.commentLoader.apply($this);
 
 								methods.applyCallback.apply([$this , 'idResult']);
 							});
@@ -462,6 +528,92 @@ pullDown
 				});
 
 				methods.applyCallback.apply([$this , 'simulationLoaded']);
+			});
+		}
+
+		/********************
+		commentLoader
+		********************/
+		,commentLoader:function(){
+			var $this = $(this)
+			,options = $this.data(namespace)
+			,$commentArea = options.$commentArea;
+
+			options.commentParameter.session_id = options.basicInfoObj.sid;
+			options.commentParameter.tid = options.basicInfoObj.tid;
+
+			// ajax開始
+			$.ajax({
+				type : 'GET'
+				,url : options.commentURL
+				,data : options.commentParameter
+			})
+			// 成功時の処理
+			.done(function(xml){
+				console.log(xml);
+
+				var $comment
+				,commentText
+				,userText
+				,timeText
+				,timeObject = {
+					hour:0
+					,minute:0
+					,second:0
+					,raw:''
+				}
+				,i
+				,$dl
+				,$li;
+
+				$(xml).find('Comments').each(function(i){
+					$comment = $(this);
+
+					$li = $('<li />');
+					$dl = $('<dl />');
+
+					commentText = $comment.find('text').text();
+					userText = $comment.find('username').text();
+					timeObject.raw = parseInt($comment.find('time').text());
+
+					timeObject.second = timeObject.raw;
+					timeObject.minute = parseInt(timeObject.second / 60);
+					timeObject.hour = parseInt(timeObject.minute / 60);
+
+					timeObject.minute = timeObject.minute - 60 * timeObject.hour;
+					timeObject.second = timeObject.second - 60 * timeObject.minute;
+
+					timeText = '';
+					for(i in timeObject){
+
+						if(i == 'raw'){
+							continue;
+						}
+
+						if(timeObject[i] < 10){
+							timeObject[i] = '0' + timeObject[i];
+						}
+
+						timeText += timeObject[i];
+
+						if(i != 'second'){
+							timeText += ':';
+						}
+					}
+
+					$('<dt />').text(commentText).toggleClass(options.commentClass,true).appendTo($dl);
+					$('<dd />').text(userText).toggleClass(options.commentUserClass,true).appendTo($dl);
+					$('<dd />').text(timeText).toggleClass(options.commentTimeClass,true).appendTo($dl);
+
+					$li.attr('data-commentSyncScroll-timestamp',timeObject.raw).append($dl);
+					$commentArea.append($li);
+
+				});
+
+				methods.applyCallback.apply([$this,'commentLoaded']);
+			})
+			.fail(function(){
+				alert('コメントの取得に失敗しました（・∀・）');
 			});
 		}
 
@@ -484,8 +636,10 @@ pullDown
 					var $target = $(this)
 					,idData = $target.data();
 
+					// unameの処理
+
 					// IDを上書き
-					$.extend(options.IDobj , idData);
+					$.extend(options.basicInfoObj , idData);
 
 					methods[options.nextMethod].apply($this);
 				})

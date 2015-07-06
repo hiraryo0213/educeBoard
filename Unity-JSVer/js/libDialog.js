@@ -20,13 +20,16 @@ libDialog
 
 				// オプションをセット
 				$(this).data(namespace, $.extend(true, {
-					dialogName : null
 
-					,$closeOverlay : $('<div />')
+					$closeOverlay : $('<div />')
 
 					,closeOverlayClass : 'elCloseOverlay'
+					,overlayAnotherAttr : null
 
-					,$dialogObj : null
+					,$show : null
+					,$close : null
+
+					,dialogID : $(this).attr('id').substring(0)
 
 					,setEvent : true
 
@@ -53,14 +56,32 @@ libDialog
 		********************/
 		,prepare:function(){
 			var $this = $(this)
-			,options = $this.data(namespace);
+			,options = $this.data(namespace)
+			,split = []
 
-			options.dialogName = $this.attr('aria-controles');
-			options.$dialogObj = $('#' + options.dialogName);
+			//IDが取得できなかったら強制終了
+			if(options.dialogID === undefined){
+				return;
+			}
 
-			options.$closeOverlay.toggleClass(options.closeOverlayClass,true);
+			if(options.overlayAnotherAttr !== null && typeof options.overlayAnotherAttr === 'string'){
 
-			options.$dialogObj.prepend(options.$closeOverlay);
+				split = options.overlayAnotherAttr.replace(/\"/g,'').split('=');
+
+				options.$closeOverlay.attr(split[0],split[1]);
+
+
+			}
+
+			options.$closeOverlay
+			.toggleClass(options.closeOverlayClass,true)
+			.attr('data-' + namespace + '-parts','close')
+			.attr('aria-controles',options.dialogID)
+
+			$this.prepend(options.$closeOverlay);
+
+			options.$show = $('[data-' + namespace + '-parts="show"][aria-controles="' + options.dialogID + '"]');
+			options.$close = $('[data-' + namespace + '-parts="close"][aria-controles="' + options.dialogID + '"]');
 
 			if(options.setEventFlag){
 				methods.setEvent.apply($this);
@@ -79,17 +100,19 @@ libDialog
 			options.setEventFlag = true;
 
 
-			$this.on('click.' + namespace, function(e){
+			options.$show.on('click.' + namespace, function(e){
 				e.preventDefault();
 
 				methods.showDialog.apply($this);
 			});
 
-			options.$closeOverlay.on('click.' + namespace,function(e){
+			options.$close.on('click.' + namespace,function(e){
 				e.preventDefault();
 
 				methods.closeDialog.apply($this);
-			})
+			});
+
+
 		}
 
 		/********************
@@ -99,7 +122,7 @@ libDialog
 			var $this = $(this)
 			,options = $this.data(namespace);
 
-			options.$dialogObj.attr('aria-hidden',false);
+			$this.attr('aria-hidden',false);
 
 			if(!options.setEventFlag){
 				methods.setEvent.apply($this);
@@ -113,7 +136,7 @@ libDialog
 			var $this = $(this)
 			,options = $this.data(namespace);
 
-			options.$dialogObj.attr('aria-hidden',true);
+			$this.attr('aria-hidden',true);
 
 			if(!options.setEventFlag){
 				methods.setEvent.apply($this);
@@ -131,9 +154,10 @@ libDialog
 
 			console.log(options)
 
-			$this.off('.' + namespace);
-			options.$closeOverlay.off('.' + namespace).remove();
-			options.$dialogObj.attr('aria-hidden',true);
+			options.$show.off('.' + namespace);
+			options.$close.off('.' + namespace);
+			options.$closeOverlay.remove();
+			$this.attr('aria-hidden',true);
 
 			$this.removeData(namespace);
 		}

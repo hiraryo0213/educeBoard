@@ -8,6 +8,9 @@ libDragAndDrop
 	var $body = $('body')
 	$window = $(window);
 
+	// $dropOverlay = $('<div />').attr('data-' + namespace + '-parts','dropOverlay').appendTo('body');;
+
+
 	/********************
 	methods
 	********************/
@@ -34,6 +37,17 @@ libDragAndDrop
 					,endY : null
 					,Xmode : false
 					,Ymode : false
+					,$target:$(this)
+					,draggingClass : 'elDragging'
+
+
+					,dragStartBefore:null
+					,dragStartAfter:null
+					,dragging:null
+					,dragEndBefore:null
+					,dragEndAfter:null
+
+
 				}, method));
 
 				// dataコピー
@@ -57,6 +71,7 @@ libDragAndDrop
 			
 			$this.on('mousedown.' + namespace, '[' + options.dragObjectAttr + ']', function(e){
 				e.preventDefault();
+				options.$target.toggleClass(options.draggingClass,true);
 				methods.dragStart.apply($this);
 			});
 
@@ -70,12 +85,18 @@ libDragAndDrop
 			,options = $this.data(namespace)
 			,$dragObject = options.$dragObject;
 
+			methods.applyCallback.apply([$this,'dragStartBefore']);
+
 			console.log('dragStart');
 
 			console.log($dragObject.offset());
 
 			options.startX = $dragObject.offset().left;
 			options.startY = $dragObject.offset().top;
+
+			// $dropOverlay.css('display','block');
+
+			methods.applyCallback.apply([$this,'dragStartAfter']);
 
 			methods.dragging.apply($this);
 		}
@@ -109,7 +130,7 @@ libDragAndDrop
 				moveX = e.pageX - startX - dragObjectWidth * 0.5;
 				moveY = e.pageY - startY - dragObjectHeight * 0.5;
 
-				console.log(dragObjectRelativeTop);
+				console.log(moveX,moveY);
 
 				// console.log(dragFeildWidth,startX + );
 				if(dragObjectRelativeLeft + moveX >= dragFeildWidth){
@@ -142,8 +163,13 @@ libDragAndDrop
 				// console.log(dragFeildWidth - startX - dragObjectWidth * 0.5);
 				// console.log(dragFeildWidth);
 
-				$dragObject.css({transform:'translate(' + moveX + 'px,' + moveY +'px'});
+				$dragObject.css(prefixedStyle({
+					transform:'translate(' + moveX + 'px,' + moveY +'px)'
+				}));
+
+				methods.applyCallback.apply([$this,'dragging']);
 			});
+
 
 			methods.dragEnd.apply($this);
 		}
@@ -157,12 +183,21 @@ libDragAndDrop
 			,resultLeft = 0
 			,dragObjectWidth = $dragObject.outerWidth()
 			,dragObjectHeight = $dragObject.outerHeight()
-			,moveThisOffset = options.moveThisOffset;;
+			,moveThisOffset = options.moveThisOffset;
 
-			$window.off('mouseup.' + namespace);
+			methods.applyCallback.apply([$this,'dragEndBefore']);
+
+			// $window.off('mouseup.' + namespace);
 
 			$window.on('mouseup.' + namespace, function(e){
+				$window.off('mouseup.' + namespace);
 				$window.off('mousemove.' + namespace);
+
+				// $dropOverlay.css({
+				// 	'display':''
+				// });
+
+				options.$target.toggleClass(options.draggingClass,false);
 
 				// イベントが発火した瞬間に取得する
 				thisOffset = $this.offset()
@@ -170,7 +205,9 @@ libDragAndDrop
 				console.log(thisOffset,moveThisOffset);
 
 				if(thisOffset.top != moveThisOffset.top || thisOffset.left != moveThisOffset.left){
-					$dragObject.css({transform:''});
+					$dragObject.css(prefixedStyle({
+						transform:''
+					}));
 					return;
 				}
 
@@ -183,29 +220,49 @@ libDragAndDrop
 				console.log(options.endY, thisOffset.top,dragObjectHeight * 0.5);
 
 				if(!options.Xmode && !options.Ymode){
-					$dragObject.css({
+					$dragObject.css(prefixedStyle({
 						transform:''
-						,top:resultTop + 'px'
+					})).css({
+						top:resultTop + 'px'
 						,left:resultLeft + 'px'
 					});
 				}
 				else if(!options.Xmode && options.Ymode){
-					$dragObject.css({
+					$dragObject.css(prefixedStyle({
 						transform:''
-						,top:resultTop + 'px'
+					})).css({
+						top:resultTop + 'px'
 					});
 				}
 				else if(options.Xmode && !options.Ymode){
-					$dragObject.css({
+					$dragObject.css(prefixedStyle({
 						transform:''
-						,left:resultLeft + 'px'
+					})).css({
+						left:resultLeft + 'px'
 					});
 				}
 
+
+				// console.log('dragEndAfter');
+				methods.applyCallback.apply([$this,'dragEndAfter']);
 
 			});
 
 			
+		}
+
+		/********************
+		applyCallback
+		********************/
+		,applyCallback:function(){
+			var $this = $(this)[0]
+			,options = $this.data(namespace)
+			,callback = $(this)[1];
+
+
+			if(typeof options[callback] === 'function'){;
+				options[callback]();
+			}
 		}
 
 		/********************
@@ -216,6 +273,30 @@ libDragAndDrop
 			,options = $this.data(namespace);
 		}
 	};
+
+	/********************
+	prefixedStyle
+	ベンダープレフィックス付きのスタイルを返す関数
+	********************/
+	function prefixedStyle(style){
+
+		var prefix = ['ms','webkit','moz']
+		,result = {}
+		,i,j
+		,prefixLength = prefix.length;
+
+		for(i in style){
+
+			for(j = 0; j < prefixLength; j++){
+				result['-' + prefix[j] + '-' + i] = style[i];
+			}
+
+			result[i] = style[i];
+
+		}
+
+		return result;
+	}
 
 
 	/********************

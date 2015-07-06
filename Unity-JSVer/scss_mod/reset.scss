@@ -7,6 +7,13 @@ html,body,section,article,figure,figcaption,header,footer,aside,div,ul,ol,li,dl,
 	box-sizing:border-box;
 }
 
+input[type="text"],textarea{
+-webkit-appearance:none;
+appearance:none;
+border:none;
+border-radius:0;
+}
+
 :root{
 	font:normal 13px/1.7 "Hiragino Kaku Gothic ProN", Meiryo, "MS PGothic", sans-serif;
 }
