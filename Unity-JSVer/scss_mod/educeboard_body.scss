@@ -961,10 +961,30 @@ overflow: hidden;
 				font-size:0;
 				line-height:20px;
 
+					label{
+					display: inline-block;
+					overflow: hidden;
+					}
+
 					input{
 					position:absolute;
-					left:100%;
+					left:-100%;
 					top:0;
+
+						&:checked{
+
+
+							+ span{
+
+								&::before{
+								background: #f90;
+								}
+
+								&::after{
+								border-color: #fff;
+								}
+							}
+						}
 					}
 
 					span{
@@ -980,13 +1000,13 @@ overflow: hidden;
 						display:block;
 						width:20px;
 						height:20px;
-						background:#ff9000;
+						background:#e6e6e6;
 						top:50%;
 						left:0;
 						margin-top:-20px * .5;
-						border-radius:3px;
+						border-radius:5px;
 						box-sizing:border-box;
-						border:1px solid #ccc;
+						border:1px solid #bfbfbf;
 						}
 
 						&::after{
@@ -994,12 +1014,12 @@ overflow: hidden;
 						position:absolute;
 						width:6px;
 						height:12px;
-						border-right:2px solid #fff;
-						border-bottom:2px solid #fff;
+						border-right:2px solid #ccc;
+						border-bottom:2px solid #ccc;
 						top:50%;
 						left:6px;
-						margin-top:-10px * .5;
-						// margin-left:4px * .5;
+						margin-top:-10px * .7;
+						margin-left:4px * .2;
 						transform:rotate(45deg);
 						box-sizing:border-box;
 						}

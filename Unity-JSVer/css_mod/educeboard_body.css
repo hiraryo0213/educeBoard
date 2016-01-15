@@ -783,10 +783,20 @@ body .elPulldownHide {
   font-size: 0;
   line-height: 20px;
 }
+#wrapper #educeboard #commentArea .elInputComment .elIsSyncScroll label {
+  display: inline-block;
+  overflow: hidden;
+}
 #wrapper #educeboard #commentArea .elInputComment .elIsSyncScroll input {
   position: absolute;
-  left: 100%;
+  left: -100%;
   top: 0;
+}
+#wrapper #educeboard #commentArea .elInputComment .elIsSyncScroll input:checked + span:before {
+  background: #f90;
+}
+#wrapper #educeboard #commentArea .elInputComment .elIsSyncScroll input:checked + span:after {
+  border-color: #fff;
 }
 #wrapper #educeboard #commentArea .elInputComment .elIsSyncScroll span {
   padding-left: 25px;
@@ -801,25 +811,26 @@ body .elPulldownHide {
   display: block;
   width: 20px;
   height: 20px;
-  background: #ff9000;
+  background: #e6e6e6;
   top: 50%;
   left: 0;
   margin-top: -10px;
-  border-radius: 3px;
+  border-radius: 5px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  border: 1px solid #ccc;
+  border: 1px solid #bfbfbf;
 }
 #wrapper #educeboard #commentArea .elInputComment .elIsSyncScroll span:after {
   content: "";
   position: absolute;
   width: 6px;
   height: 12px;
-  border-right: 2px solid #fff;
-  border-bottom: 2px solid #fff;
+  border-right: 2px solid #ccc;
+  border-bottom: 2px solid #ccc;
   top: 50%;
   left: 6px;
-  margin-top: -5px;
+  margin-top: -7px;
+  margin-left: 0.8px;
   -webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
           transform: rotate(45deg);
