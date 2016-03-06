@@ -1,10 +1,25 @@
-var CourseList = CourseLoader();
+
+var xmlURL = {
+
+	course: 'http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/loginCourseList.php',
+	member: 'http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/loginCourseMemberList.php',
+	login: 'http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/loginAuth.php',
+	simulation: 'http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/showSessionList.php'
+}
+
+
+var CourseList = XMLLoader(xmlURL.course, {xml: 1}).done(function(data){
+
+	return data;
+
+});
 var UserList;
 var cid;
 var uid;
 var uname;
 var sid;
 var tid;
+
 
 /*---ログイン画面部分---*/
 
@@ -56,7 +71,11 @@ function CoursePull(){
 //ユーザプルダウンボタンを生成
 function addLoginName(){
 	$("#login_table").append('<tr id="login_name"><td class="left"><p>名前</p></td><td><p id="name_select">名前を選択</p></td></tr>');
-	UserList = MemberLoader(cid);
+	// UserList = MemberLoader(cid);
+	// MemberLoader(cid);
+	UserList = XMLLoader(xmlURL.member, {cid: cid, xml: 1}).done(function(data){
+		return data;
+	})
 	$("#name_select").click(function(){
 		if($("#login_pass").length){
 			$("#login_pass").remove();
@@ -100,13 +119,40 @@ function addPass_button(){
 function loginHandler(){
 	console.log(cid,uid);
 	var pass = $("#pass").val();
-	var loginJadge = loginAuth(uid,pass);
-	if(loginJadge == "true"){
-		alert('パスワードが違います。');
-	}
-	else{
-		sessionSelectHandler();
-	}
+	// var loginJadge = loginAuth(uid,pass);
+	
+	XMLLoader(xmlURL.login, {uid: uid, pwd: pass, xml: 1}).done(function(data){
+		
+		var xml = data;
+
+		console.log(xml);
+
+		xml = xmlChecker(xml);
+
+		console.log(xml);
+
+		var loginJadge = $(xml).find('auth');
+
+		console.log(loginJadge);
+
+		if(typeof loginJadge === 'undefined'){
+			alert('認証に失敗しました');
+			return;
+		}
+
+		return;
+
+	});
+
+	//debug
+
+	// if()
+	// if(loginJadge == "true"){
+	// 	alert('パスワードが違います。');
+	// }
+	// else{
+	// 	sessionSelectHandler();
+	// }
 }
 
 /*---ログイン画面部分終了---*/
@@ -233,15 +279,38 @@ function flashLoader(){
 
 /*---XML_Loader---*/
 
+
+function XMLLoader(url, data){
+
+	return $.ajax({
+		type: 'GET',
+		url: url,
+		data: data
+	});
+}
+
 function CourseLoader(){
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/loginCourseList.php?xml=1",false);
-	xmlhttp.send();
-	return xmlhttp.responseXML;
+
+
+	$.ajax({
+		type: 'GET',
+		url: 'http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/loginCourseList.php',
+		data:{"xml": "1"}
+	}).done(function(data){
+		CourseList = data;
+	});
 }
 
 function addCourse(xml){
-	var _CourseList = xml.documentElement.getElementsByTagName("CourseList");
+	var _xml = xmlChecker(xml);
+
+	if(_xml === false){
+
+		alert('コースリストを正常に取得できませんでした。');
+		return;
+	}
+
+	var _CourseList = _xml.documentElement.getElementsByTagName("CourseList");
 	var str = '<div id="pulldown"><ul>';
 	for(var i = 0; i < _CourseList.length; i++){
 		var _cid = _CourseList[i].getElementsByTagName("cid")[0].childNodes[0].nodeValue;
@@ -253,14 +322,37 @@ function addCourse(xml){
 }
 
 function MemberLoader(id){
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/loginCourseMemberList.php?xml=1&cid="+ id,false);
-	xmlhttp.send();
-	return xmlhttp.responseXML;
+	// var xmlhttp = new XMLHttpRequest();
+	// xmlhttp.open("GET","http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/loginCourseMemberList.php?xml=1&cid="+ id,true);
+	// xmlhttp.send();
+	// return xmlhttp.responseXML;
+
+	$.ajax({
+		type: 'GET',
+		url: 'http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/loginCourseMemberList.php',
+		data:{
+			"xml": "1",
+			"cid": id
+		}
+	}).done(function(data){
+		console.log('success!');
+		console.log(typeof data);
+		MemberList = data;
+	});
 }
 
 function addMember(xml){
-	var _UserList = xml.documentElement.getElementsByTagName("UserList");
+
+	var _xml = xmlChecker(xml);
+	
+	if(_xml === false){
+
+		alert('メンバーリストを正常に取得できませんでした');
+		return;
+
+	}
+
+	var _UserList = _xml.documentElement.getElementsByTagName("UserList");
 	var str = '<div id="pulldown"><ul>';
 	for(var i = 0; i < _UserList.length; i++){
 		var _uid = _UserList[i].getElementsByTagName("uid")[0].childNodes[0].nodeValue;
@@ -273,21 +365,21 @@ function addMember(xml){
 
 function loginAuth(id,pass){
 	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET",'http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/loginAuth.php?uid=' + id + '&pwd=' + pass,false);
+	xmlhttp.open("GET",'http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/loginAuth.php?uid=' + id + '&pwd=' + pass,true);
 	xmlhttp.send();
 	return xmlhttp.responseText;
 }
 
 /*function sessionLoader(id,id2){
 	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/showSessionList.php?cid="+ id +"&uid=" + id2,false);
+	xmlhttp.open("GET","http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/showSessionList.php?cid="+ id +"&uid=" + id2,true);
 	xmlhttp.send();
 	return xmlhttp.responseXML;
 }*/
 
 function simulationLoader(id,id2){
 	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/showSessionList.php?cid="+ id +"&uid=" + id2,false);
+	xmlhttp.open("GET","http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/showSessionList.php?cid="+ id +"&uid=" + id2,true);
 	//xmlhttp.open("GET","http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/simulation.xml",false);
 	xmlhttp.send();
 	return xmlhttp.responseXML;
@@ -308,6 +400,37 @@ function unique(array) {
 		}
 	}
 	return uniqueArray;
+}
+
+function xmlChecker(data){
+
+	console.log(data);
+	// console.log(data.responseText);
+
+	if(typeof data.responseXML === 'undefined' && typeof data.responseText === 'string' && window.DOMParser){
+
+		console.log('xml string');
+
+		var parser = new DOMParser();
+
+		_xml = parser.parseFromString(data.responseText, 'application/xml');
+	
+	}else if(typeof data.responseXML === 'object'){
+
+		_xml = data.responseXML;
+
+
+	}else{
+
+		// alert('非同期通信で何かしらのエラーが発生しました。');
+		_xml = false;
+
+	}
+
+	// console.log(_xml);
+
+	return _xml;
+
 }
 
 /*---重複した配列要素を削除する関数 終了---*/
