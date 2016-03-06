@@ -4,22 +4,26 @@
   "description": "educeBoard",
   "main": "Gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "default": "node_modules/.bin/gulp",
+    "test": "node_modules/.bin/gulp test"
   },
   "author": "ryhiraya",
   "license": "ISC",
   "devDependencies": {
-    "browser-sync": "^1.8.3",
+    "browser-sync": "^2.11.1",
+    "compass-importer": "^0.2.1",
+    "gulp": "^3.9.1",
     "gulp-concat": "^2.4.2",
     "gulp-csscomb": "^3.0.3",
-    "gulp-filter": "^1.0.2",
+    "gulp-filter": "^3.0.1",
     "gulp-imagemin": "^2.0.0",
-    "gulp-inject-string": "0.0.2",
-    "gulp-pleeease": "^1.1.0",
-    "gulp-plumber": "^0.6.6",
+    "gulp-inject-string": "1.1.0",
+    "gulp-pleeease": "^2.0.2",
+    "gulp-plumber": "^1.1.0",
     "gulp-prompt": "^0.1.1",
     "gulp-replace": "^0.5.0",
-    "gulp-ruby-sass": "^0.7.1",
+    "gulp-ruby-sass": "^2.0.6",
+    "gulp-sass": "^2.2.0",
     "gulp-strip-debug": "^1.0.2",
     "gulp-uglify": "^1.0.1",
     "rimraf": "^2.2.8"

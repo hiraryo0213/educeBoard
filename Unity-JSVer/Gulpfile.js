@@ -316,3 +316,16 @@ gulp.task('liveReload',['watch','browserSync'],function(){
 gulp.task('proxy',['watch','browserSyncProxy'],function(){
 	console.log('proxyモード');
 });
+
+
+var _sass = require('gulp-sass'),
+	_compass = require('compass-importer');
+
+gulp.task('test', function(){
+
+	gulp.src('scss_mod/educeboard_body.scss')
+		.pipe(_sass({
+			importer: _compass
+		}))
+		.pipe(gulp.dest('css_mod'));
+})
