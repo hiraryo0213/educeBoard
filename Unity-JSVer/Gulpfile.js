@@ -63,7 +63,7 @@ gulp.task('sass',function(){
 	// エラーが発生してもwatchを動かしたままにするためのもの
 	.pipe(plumber())
 	// プロパティの順序並び替え
-	.pipe(cssComb())
+	// .pipe(cssComb())
 	// sassをコンパイル
 	.pipe(sass({
 	style:'expanded'
@@ -156,6 +156,7 @@ gulp.task('jsmin', function(){
 
 	gulp.src(jsFilePath[0] + 'js/' + jsFilePath[1])
 	// console.logを削除
+	.pipe(plumber())
 	.pipe(stripDebug())
 	// minify化
 	.pipe(uglify())
@@ -315,3 +316,16 @@ gulp.task('liveReload',['watch','browserSync'],function(){
 gulp.task('proxy',['watch','browserSyncProxy'],function(){
 	console.log('proxyモード');
 });
+
+
+var _sass = require('gulp-sass'),
+	_compass = require('compass-importer');
+
+gulp.task('test', function(){
+
+	gulp.src('scss_mod/educeboard_body.scss')
+		.pipe(_sass({
+			importer: _compass
+		}))
+		.pipe(gulp.dest('css_mod'));
+})

@@ -1,6 +1,6 @@
-@charset "utf-8";
 body {
   position: relative;
+  margin: 0;
 }
 body .elPulldownHide {
   position: absolute;
@@ -8,12 +8,13 @@ body .elPulldownHide {
   height: 100%;
   background: #fff;
   opacity: 0.2;
+  filter: alpha(opacity=20);
   top: 0;
   left: 0;
 }
 
 #wrapper {
-  margin: 0 auto;
+  margin: 0px auto;
   width: 1000px;
   overflow: hidden;
 }
@@ -23,6 +24,9 @@ body .elPulldownHide {
   position: relative;
   border-bottom: 1px solid #aaa;
 }
+#wrapper #header [aria-hidden="true"] {
+  display: none;
+}
 #wrapper #header h1 {
   width: 133px;
   height: 79px;
@@ -30,7 +34,8 @@ body .elPulldownHide {
   top: 50%;
   margin-top: -39.5px;
   background: url("../images/logo.png") no-repeat 50% 50%;
-  background-size: 100% auto;
+  -webkit-background-size: 100% auto;
+          background-size: 100% auto;
   text-indent: 100%;
   overflow: hidden;
   white-space: nowrap;
@@ -43,26 +48,41 @@ body .elPulldownHide {
 #wrapper #header nav {
   position: absolute;
   right: 0;
-  top: 10px;
 }
 #wrapper #header nav ul {
   overflow: hidden;
+  margin: 20px 0 0 0;
 }
 #wrapper #header nav li {
   float: left;
+}
+#wrapper #header nav li:first-child span {
   border-left: 1px solid #aaa;
 }
-#wrapper #header nav li:first-child {
-  border: none;
-}
-#wrapper #header nav li:hover {
-  background: #f93;
+#wrapper #header nav li:hover a {
+  color: #ccc;
 }
 #wrapper #header nav li a {
   display: block;
-  padding: 5px 20px;
+  height: 20px;
+  line-height: 20px;
   text-decoration: none;
   color: #333;
+}
+#wrapper #header nav li span {
+  border-right: 1px solid #aaa;
+  padding: 0 20px;
+}
+#wrapper #header .elWelcome {
+  position: absolute;
+  bottom: 5px;
+  right: 0;
+  font-size: 0;
+}
+#wrapper #header .elWelcome span {
+  display: inline-block;
+  font-size: 1rem;
+  margin-left: 1ex;
 }
 #wrapper #login {
   margin: 100px 0;
@@ -105,9 +125,10 @@ body .elPulldownHide {
   background: #ccc;
   border: 1px solid #aaa;
 }
-#wrapper #login .mdLoginForm .elItem .elSelectButton:not([aria-activedescendant*="pulldownBtn"]) a {
+#wrapper #login .mdLoginForm .elItem .elSelectButton:not([aria-activedescendant*="PulldownButton"]) a {
   pointer-events: none;
   opacity: 0.5;
+  filter: alpha(opacity=50);
 }
 #wrapper #login .mdLoginForm .elItem .elSelectButton a {
   display: block;
@@ -125,20 +146,22 @@ body .elPulldownHide {
   width: inherit;
   height: 200px;
   border: 1px solid #aaa;
+  border-top: none;
   position: absolute;
   top: 40px;
   background: #fff;
   z-index: 9999;
   -webkit-transition: all ease-out .3s;
-  -moz-transition: all ease-out .3s;
-  -ms-transition: all ease-out .3s;
   transition: all ease-out .3s;
-  box-shadow: 2px 2px 5px #777;
+  -webkit-box-shadow: 2px 2px 5px #777;
+          box-shadow: 2px 2px 5px #777;
 }
 #wrapper #login .mdLoginForm .elItem ul[aria-expanded="false"] {
   overflow: hidden;
   height: 0px;
   opacity: 0;
+  filter: alpha(opacity=0);
+  border-bottom: 0;
 }
 #wrapper #login .mdLoginForm .elItem li {
   border-bottom: 1px solid #aaa;
@@ -161,13 +184,25 @@ body .elPulldownHide {
   width: inherit;
   height: 40px;
   position: relative;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+#wrapper #login .mdLoginForm .elItem .elPassword span {
+  display: block;
+  width: 100%;
+  height: 30px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 #wrapper #login .mdLoginForm .elItem .elPassword input {
-  width: inherit;
-  height: 20px;
-  position: absolute;
-  top: 50%;
-  margin-top: -10px;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  font-size: 12px;
+  line-height: 1;
 }
 #wrapper #login .elLoginButton {
   position: relative;
@@ -176,12 +211,13 @@ body .elPulldownHide {
 #wrapper #login .elLoginButton:not([aria-activedescendant*="loginButton"]) a {
   pointer-events: none;
   opacity: 0.5;
+  filter: alpha(opacity=50);
 }
 #wrapper #login .elLoginButton a {
   display: block;
   position: absolute;
   width: 80px;
-  padding: 10px;
+  padding: 15px;
   border-radius: 5px;
   background: #f93;
   right: 0;
@@ -189,13 +225,17 @@ body .elPulldownHide {
   color: #333;
   font-weight: bold;
   text-align: center;
-  box-shadow: 2px 2px 5px #777;
+  -webkit-box-shadow: 2px 2px 5px #777;
+          box-shadow: 2px 2px 5px #777;
+  line-height: 1;
 }
 #wrapper #login .elLoginButton a:hover {
   opacity: .7;
+  filter: alpha(opacity=70);
 }
 #wrapper #login .elLoginButton a:active {
   opacity: .9;
+  filter: alpha(opacity=90);
 }
 #wrapper #movieSelect {
   position: fixed;
@@ -206,10 +246,13 @@ body .elPulldownHide {
   left: 0;
   z-index: 9997;
   opacity: 1;
-  transition: all ease-out .2s;
+  filter: alpha(opacity=100);
+  -webkit-transition: all ease-out .2s;
+          transition: all ease-out .2s;
 }
 #wrapper #movieSelect[aria-hidden="true"] {
   opacity: 0;
+  filter: alpha(opacity=0);
   height: 0;
   overflow: hidden;
   top: 50%;
@@ -219,6 +262,7 @@ body .elPulldownHide {
   width: 100%;
   height: 100%;
   opacity: 0;
+  filter: alpha(opacity=0);
   background: #fff;
   top: 0;
   left: 0;
@@ -232,7 +276,6 @@ body .elPulldownHide {
   top: 10%;
   padding-top: 50px;
   border: 1px solid #333;
-  -moz-box-shadow: 0px 0px 10px 5px #555;
   -webkit-box-shadow: 0px 0px 10px 5px #555;
   box-shadow: 0px 0px 10px 5px #555;
 }
@@ -251,6 +294,45 @@ body .elPulldownHide {
   font-weight: normal;
   color: #eee;
 }
+#wrapper #movieSelect .mdMovieSelect .elHeader .elClose {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+#wrapper #movieSelect .mdMovieSelect .elHeader .elClose a {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  width: 50px;
+  height: 50px;
+}
+#wrapper #movieSelect .mdMovieSelect .elHeader .elClose span {
+  display: block;
+  text-indent: -100%;
+  white-space: nowrap;
+}
+#wrapper #movieSelect .mdMovieSelect .elHeader .elClose span:before,
+#wrapper #movieSelect .mdMovieSelect .elHeader .elClose span:after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 26px;
+  background: #fff;
+  top: 50%;
+  left: 50%;
+  margin-top: -13px;
+  margin-left: -1px;
+}
+#wrapper #movieSelect .mdMovieSelect .elHeader .elClose span:before {
+  -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+#wrapper #movieSelect .mdMovieSelect .elHeader .elClose span:after {
+  -webkit-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
 #wrapper #movieSelect .mdMovieSelect .elItem {
   height: 100%;
   z-index: 9998;
@@ -262,7 +344,6 @@ body .elPulldownHide {
   overflow: hidden;
 }
 #wrapper #movieSelect .mdMovieSelect .elItem .elSimulationList > li dt {
-  -moz-box-shadow: 0px 0px 10px 0px #666;
   -webkit-box-shadow: 0px 0px 10px 0px #666;
   box-shadow: 0px 0px 10px 0px #666;
 }
@@ -280,13 +361,12 @@ body .elPulldownHide {
 #wrapper #movieSelect .mdMovieSelect .elItem .elSimulationList > li dd {
   overflow: hidden;
   -webkit-transition: all ease-out .3s;
-  -moz-transition: all ease-out .3s;
-  -ms-transition: all ease-out .3s;
   transition: all ease-out .3s;
 }
 #wrapper #movieSelect .mdMovieSelect .elItem .elSimulationList > li dd[aria-expanded="false"] {
   height: 0;
   opacity: 0;
+  filter: alpha(opacity=0);
 }
 #wrapper #movieSelect .mdMovieSelect .elItem .elSessionList {
   padding: 15px;
@@ -299,7 +379,6 @@ body .elPulldownHide {
   margin: 0;
 }
 #wrapper #movieSelect .mdMovieSelect .elItem .elSessionList li dt {
-  -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
@@ -316,6 +395,7 @@ body .elPulldownHide {
 #wrapper #movieSelect .mdMovieSelect .elItem .elSessionList li dd[aria-expanded="false"] {
   height: 0;
   opacity: 0;
+  filter: alpha(opacity=0);
 }
 #wrapper #movieSelect .mdMovieSelect .elItem .elTrialList {
   margin: 0;
@@ -330,7 +410,6 @@ body .elPulldownHide {
   border: none;
 }
 #wrapper #movieSelect .mdMovieSelect .elItem .elTrialList li dt {
-  -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
@@ -374,73 +453,90 @@ body .elPulldownHide {
 #wrapper #educeboard #educeboardMovie {
   position: relative;
   width: 540px;
-  height: 405px;
-  border: 1px solid #ccc;
-  overflow: hidden;
+  height: 445px;
   float: left;
+}
+#wrapper #educeboard #educeboardMovie object, #wrapper #educeboard #educeboardMovie embed {
+  position: relative;
+  z-index: 0;
 }
 #wrapper #educeboard #educeboardMovie #Player {
   background: #333;
-  position: absolute;
+  position: relative;
   width: 100%;
-  height: 45px;
+  height: 38px;
   bottom: 0;
   left: 0;
 }
 #wrapper #educeboard #educeboardMovie #Player .mdSeekbar {
   position: relative;
   background: #eee;
-  height: 10px;
+  height: 8px;
 }
 #wrapper #educeboard #educeboardMovie #Player .mdSeekbar .elTimeLength {
-  width: 30%;
+  width: 0;
   height: 100%;
   background: #d00;
+  -webkit-transition: width 1s linear;
+  transition: width 1s linear;
+}
+#wrapper #educeboard #educeboardMovie #Player .mdSeekbar .elTimeLength.elNoAnimation {
+  -webkit-transition-duration: 0s;
+  transition-duration: 0s;
 }
 #wrapper #educeboard #educeboardMovie #Player .mdSeekbar .elTimePosition {
   position: absolute;
-  width: 6px;
-  height: 6px;
-  border: 7px solid #ddd;
-  box-sizing: content-box;
-  margin-top: -10px;
-  margin-left: -10px;
+  width: 5px;
+  height: 5px;
+  border: 5px solid #ddd;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  margin: -7.5px 0 0 -7.5px;
   background: #777;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
   border-radius: 10px;
   top: 50%;
-  left: 30%;
   cursor: pointer;
+  z-index: 2;
+  -webkit-transition: left 1s linear;
+  transition: left 1s linear;
+}
+#wrapper #educeboard #educeboardMovie #Player .mdSeekbar .elTimePosition.elNoAnimation {
+  -webkit-transition-duration: 0s;
+  transition-duration: 0s;
 }
 #wrapper #educeboard #educeboardMovie #Player .mdController {
-  height: 35px;
+  height: 30px;
 }
 #wrapper #educeboard #educeboardMovie #Player .mdController ul {
-  height: 100%;
+  height: inherit;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController ul::after {
+#wrapper #educeboard #educeboardMovie #Player .mdController ul:after {
   content: "";
   display: block;
   clear: both;
 }
 #wrapper #educeboard #educeboardMovie #Player .mdController li {
-  width: 11%;
+  width: 50px;
   height: inherit;
+  border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
+  margin: 0 -1px;
   float: left;
   position: relative;
+  background: #333;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton {
-  width: 100%;
+#wrapper #educeboard #educeboardMovie #Player .mdController li.elPlayButton {
   height: inherit;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li {
+#wrapper #educeboard #educeboardMovie #Player .mdController li.elPlayButton ul {
+  width: inherit;
+}
+#wrapper #educeboard #educeboardMovie #Player .mdController li.elPlayButton li {
   width: inherit;
   height: inherit;
   border: none;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li a {
+#wrapper #educeboard #educeboardMovie #Player .mdController li.elPlayButton li a {
   display: block;
   width: inherit;
   height: inherit;
@@ -449,151 +545,154 @@ body .elPulldownHide {
   overflow: hidden;
   position: relative;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li[aria-hidden="true"] {
+#wrapper #educeboard #educeboardMovie #Player .mdController li.elPlayButton li[aria-hidden="true"] {
   display: none;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elPlay a::before, #wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elPlay li.elStop a::after, #wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elStop li.elPlay a::after {
+#wrapper #educeboard #educeboardMovie #Player .mdController li.elPlayButton li.elPlay a:before, #wrapper #educeboard #educeboardMovie #Player .mdController li.elPlayButton li.elPlay li.elStop a:after, #wrapper #educeboard #educeboardMovie #Player .mdController li.elPlayButton li.elStop li.elPlay a:after {
   content: "";
   position: absolute;
   width: 0;
   height: 0;
-  border: 10px solid transparent;
-  border-left: 15px solid #ddd;
-  margin-left: -7.5px;
-  margin-top: -10px;
+  border: 7px solid transparent;
+  border-left: 12px solid #ddd;
+  margin-left: -4px;
+  margin-top: -7px;
   top: 50%;
   left: 50%;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elStop a::before, #wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elStop a::after {
+#wrapper #educeboard #educeboardMovie #Player .mdController li.elPlayButton li.elStop a:before, #wrapper #educeboard #educeboardMovie #Player .mdController li.elPlayButton li.elStop a:after {
   content: "";
   display: block;
-  width: 6px;
-  height: 20px;
+  width: 4px;
+  height: 14px;
   background: #ddd;
   position: absolute;
-  margin-top: -10px;
+  margin-top: -7px;
   top: 50%;
-  left: 35%;
+  left: 18px;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elPlayButton li.elStop a::after {
+#wrapper #educeboard #educeboardMovie #Player .mdController li.elPlayButton li.elStop a:after {
   left: auto;
-  right: 35%;
+  right: 18px;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elVolumeTrigger {
+#wrapper #educeboard #educeboardMovie #Player .mdController li.elVolumeTrigger a {
   display: block;
-  width: 30px;
+  width: 23px;
   height: inherit;
   margin: 0 auto;
   position: relative;
   background: #333;
   z-index: 1;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elVolumeTrigger::before {
+#wrapper #educeboard #educeboardMovie #Player .mdController li.elVolumeTrigger a:before, #wrapper #educeboard #educeboardMovie #Player .mdController li.elVolumeTrigger li.elPlayButton li.elStop a:after, #wrapper #educeboard #educeboardMovie #Player .mdController li.elPlayButton li.elStop li.elVolumeTrigger a:after {
   content: "";
   display: block;
   position: absolute;
-  width: 10px;
-  height: 8px;
+  width: 8px;
+  height: 4px;
   background: #ddd;
-  margin-top: -4px;
+  margin-top: -2px;
   top: 50%;
   left: 0;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elVolumeTrigger::after {
+#wrapper #educeboard #educeboardMovie #Player .mdController li.elVolumeTrigger a:after {
   content: "";
   display: block;
   position: absolute;
   width: 0;
   height: 0;
-  border: 10px solid transparent;
-  border-right: 10px solid #ddd;
-  margin-top: -10px;
+  border: 8px solid transparent;
+  border-right: 8px solid #ddd;
+  border-left: 0px;
+  margin-top: -8px;
   top: 50%;
-  left: -5px;
+  left: 2px;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elVolumeTrigger span {
+#wrapper #educeboard #educeboardMovie #Player .mdController li.elVolumeTrigger span {
   display: block;
   width: 100%;
   height: inherit;
   position: relative;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elVolumeTrigger span::before {
+#wrapper #educeboard #educeboardMovie #Player .mdController li.elVolumeTrigger span:before {
   content: "";
   display: block;
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   border: 3px solid transparent;
-  border-right: 3px solid #ddd;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
-  border-radius: 12px;
+  border-right: 2px solid #ddd;
+  border-radius: 16px;
   position: absolute;
-  margin-top: -9px;
+  margin-top: -8px;
   top: 50%;
-  right: 7px;
+  left: 1px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elVolumeTrigger span::after {
+#wrapper #educeboard #educeboardMovie #Player .mdController li.elVolumeTrigger span:after {
   content: "";
   display: block;
-  width: 25px;
-  height: 25px;
+  width: 26px;
+  height: 26px;
   border: 3px solid transparent;
-  border-right: 3px solid #ddd;
-  -moz-border-radius: 25px;
-  -webkit-border-radius: 25px;
-  border-radius: 25px;
+  border-right: 2px solid #ddd;
+  border-radius: 26px;
   position: absolute;
-  margin-top: -15px;
+  margin-top: -13px;
   top: 50%;
-  right: 0;
+  left: -3px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 #wrapper #educeboard #educeboardMovie #Player .mdController li:hover .elVolume {
-  bottom: 35px;
-  z-index: 0;
+  width: 100px;
+  border-color: #ddd;
 }
 #wrapper #educeboard #educeboardMovie #Player .mdController li .elVolume {
-  width: 100%;
-  height: 100px;
+  margin-left: 1px;
+  width: 0px;
+  overflow: hidden;
+  height: inherit;
   background: #333;
   position: absolute;
-  bottom: -100px;
-  -moz-border-radius: 10px 10px 0 0;
-  -webkit-border-radius: 10px;
-  border-radius: 10px 10px 0 0;
-  transition: bottom 0.3s ease-out;
+  border-right: 1px solid transparent;
+  top: 0;
+  left: 100%;
+  -webkit-transition: all 0.3s ease-out;
+          transition: all 0.3s ease-out;
   z-index: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 #wrapper #educeboard #educeboardMovie #Player .mdController li .elVolume .elVolumeBar {
-  width: 6px;
-  height: 80px;
+  width: 80px;
+  height: 6px;
   background: #ddd;
   position: absolute;
-  top: 10px;
-  left: 50%;
-  margin-left: -3px;
+  top: 50%;
+  left: 10px;
+  margin-top: -3px;
   white-space: nowrap;
   text-indent: 100%;
-  overflow: hidden;
 }
 #wrapper #educeboard #educeboardMovie #Player .mdController li .elVolume .elVolumeBar .elVolumeLevel {
-  width: 6px;
-  height: 50%;
+  width: 50%;
+  height: 6px;
   position: absolute;
   bottom: 0;
   left: 0;
   background: #d00;
 }
-#wrapper #educeboard #educeboardMovie #Player .mdController li .elVolume .elVolumePosition {
+#wrapper #educeboard #educeboardMovie #Player .mdController li .elVolume .elVolumeBar .elVolumePosition {
   position: absolute;
-  width: 6px;
-  height: 6px;
-  border: 7px solid #ddd;
-  box-sizing: content-box;
-  margin-top: -10px;
-  margin-left: -10px;
+  width: 5px;
+  height: 5px;
+  border: 5px solid #ddd;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  margin-top: -7.5px;
+  margin-left: -7.5px;
   background: #777;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
   border-radius: 10px;
   top: 50%;
   left: 50%;
@@ -606,6 +705,7 @@ body .elPulldownHide {
   padding: 0 10px;
   border: none;
   border-left: 1px solid #ddd;
+  font-size: .9em;
 }
 #wrapper #educeboard #educeboardMovie #Player .mdController li.elTimeView span {
   display: table-cell;
@@ -614,22 +714,21 @@ body .elPulldownHide {
 }
 #wrapper #educeboard #commentArea {
   margin-left: 600px;
-  border: 5px solid #aaa;
-  border-radius: 10px;
+  border: 2px solid #aaa;
   background: #ddd;
   width: 400px;
   height: 640px;
   overflow: hidden;
 }
 #wrapper #educeboard #commentArea .elInputComment {
-  padding: 10px;
+  padding: 15px;
   overflow: hidden;
 }
 #wrapper #educeboard #commentArea .elInputComment .elTextArea {
-  width: 300px;
+  width: 295px;
   height: 70px;
   padding: 5px;
-  border: 3px solid #62BB7F;
+  border: 3px solid #30a955;
   border-radius: 3px;
   background: #fff;
   float: left;
@@ -643,21 +742,24 @@ body .elPulldownHide {
   font-size: 16px;
 }
 #wrapper #educeboard #commentArea .elInputComment .elButton {
-  margin-left: 310px;
+  margin-left: 305px;
   width: 60px;
 }
 #wrapper #educeboard #commentArea .elInputComment .elButton .elSubmit {
   width: inherit;
   height: 40px;
-  background: #62BB7F;
+  background: #30a955;
+  border: 1px solid #27A337;
   border-radius: 3px;
-  box-shadow: 0px 0px 3px #555;
+  -webkit-box-shadow: 0px 2px 3px rgba(81, 81, 81, 0.5);
+          box-shadow: 0px 2px 3px rgba(81, 81, 81, 0.5);
 }
 #wrapper #educeboard #commentArea .elInputComment .elButton .elSubmit:hover {
-  opacity: .5;
+  background: #27A337;
 }
 #wrapper #educeboard #commentArea .elInputComment .elButton .elSubmit:active {
   opacity: .8;
+  filter: alpha(opacity=80);
 }
 #wrapper #educeboard #commentArea .elInputComment .elButton .elSubmit a {
   display: block;
@@ -672,19 +774,83 @@ body .elPulldownHide {
   height: 25px;
   margin-top: 5px;
   background: #333;
+  visibility: hidden;
+}
+#wrapper #educeboard #commentArea .elInputComment .elIsSyncScroll {
+  position: relative;
+  margin-top: 5px;
+  overflow: hidden;
+  font-size: 0;
+  line-height: 20px;
+}
+#wrapper #educeboard #commentArea .elInputComment .elIsSyncScroll label {
+  display: inline-block;
+  overflow: hidden;
+}
+#wrapper #educeboard #commentArea .elInputComment .elIsSyncScroll input {
+  position: absolute;
+  left: -100%;
+  top: 0;
+}
+#wrapper #educeboard #commentArea .elInputComment .elIsSyncScroll input:checked + span:before {
+  background: #f90;
+}
+#wrapper #educeboard #commentArea .elInputComment .elIsSyncScroll input:checked + span:after {
+  border-color: #fff;
+}
+#wrapper #educeboard #commentArea .elInputComment .elIsSyncScroll span {
+  padding-left: 25px;
+  position: relative;
+  display: inline-block;
+  font-size: 12px;
+  line-height: 20px;
+}
+#wrapper #educeboard #commentArea .elInputComment .elIsSyncScroll span:before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: #e6e6e6;
+  top: 50%;
+  left: 0;
+  margin-top: -10px;
+  border-radius: 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 1px solid #bfbfbf;
+}
+#wrapper #educeboard #commentArea .elInputComment .elIsSyncScroll span:after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 12px;
+  border-right: 2px solid #ccc;
+  border-bottom: 2px solid #ccc;
+  top: 50%;
+  left: 6px;
+  margin-top: -7px;
+  margin-left: 0.8px;
+  -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 #wrapper #educeboard #commentArea .elCommentList {
-  height: 540px;
-  overflow: hidden;
+  height: 520px;
+  overflow: auto;
   border-top: 5px solid #aaa;
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+#wrapper #educeboard #commentArea .elCommentList.elSyncScroll {
+  overflow: hidden;
 }
 #wrapper #educeboard #commentArea .elCommentList ul {
-  -webkit-transition: transform ease-out 0.4s;
-  -moz-transition: transform ease-out 0.4s;
-  -ms-transition: transform ease-out 0.4s;
+  -webkit-transition: -webkit-transform ease-out 0.4s;
   transition: transform ease-out 0.4s;
   -webkit-transform: translateY(0px);
-  -moz-transform: translateY(0px);
   -ms-transform: translateY(0px);
   transform: translateY(0px);
 }
@@ -697,25 +863,30 @@ body .elPulldownHide {
 }
 #wrapper #educeboard #commentArea .elCommentList li.elNowComment {
   -webkit-animation: nowCommentAnimation .4s ease-in infinite alternate;
-  -moz-animation: nowCommentAnimation .4s ease-in infinite alternate;
   -ms-animation: nowCommentAnimation .4s ease-in infinite alternate;
   animation: nowCommentAnimation .4s ease-in infinite alternate;
+}
+#wrapper #educeboard #commentArea .elCommentList li.elAdded {
+  -webkit-animation: addedCommentAnimation .6s ease-out 1;
+  -ms-animation: addedCommentAnimation .6s ease-out 1;
+  animation: addedCommentAnimation .6s ease-out 1;
 }
 #wrapper #educeboard #commentArea .elCommentList li dl {
   border-bottom: 1px solid #aaa;
   min-height: inherit;
   position: relative;
-  padding: 10px 20px;
+  padding: 15px 20px;
 }
 #wrapper #educeboard #commentArea .elCommentList li dt {
   font-size: 16px;
-  padding-bottom: 20px;
+  line-height: 1.4;
+  padding-bottom: 35px;
 }
 #wrapper #educeboard #commentArea .elCommentList li dd {
   font-size: 10px;
   color: #777;
   position: absolute;
-  bottom: 10px;
+  bottom: 15px;
 }
 #wrapper #educeboard #commentArea .elCommentList li dd.elUser {
   left: 20px;
@@ -732,15 +903,227 @@ body .elPulldownHide {
   color: #aaa;
 }
 
-@-webkit-keyframes nowCommentAnimation {
-  0% {
-    background: #fff;
-  }
-  100% {
-    background: #ffc;
-  }
+[data-unitySyncData-parts="loadOverlay"] {
+  position: fixed;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  filter: alpha(opacity=0);
+  top: 50%;
+  left: 0;
+  -webkit-transition: all ease-out .2s;
+  transition: all ease-out .2s;
 }
-@-moz-keyframes nowCommentAnimation {
+[data-unitySyncData-parts="loadOverlay"][aria-hidden="false"] {
+  top: 0;
+  height: 100%;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  z-index: 10000;
+}
+[data-unitySyncData-parts="loadOverlay"] .elLoadingState {
+  position: absolute;
+  width: 250px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -125px;
+  top: 50%;
+  left: 50%;
+  color: #fff;
+  font-size: 14px;
+}
+[data-unitySyncData-parts="loadOverlay"] .elLoadingState[aria-hidden="true"] {
+  display: none;
+}
+[data-unitySyncData-parts="loadOverlay"] .elLoadingState:before, [data-unitySyncData-parts="loadOverlay"] .elLoadingState:after {
+  content: '';
+  display: block;
+  position: absolute;
+  margin-top: -10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  top: 50%;
+  left: 0;
+}
+[data-unitySyncData-parts="loadOverlay"] .elLoadingState:before {
+  border: 3px solid #666;
+}
+[data-unitySyncData-parts="loadOverlay"] .elLoadingState:after {
+  border: 3px solid transparent;
+  border-top: 3px solid #fff;
+  -webkit-animation: nowLoading .7s linear infinite;
+  -ms-animation: nowLoading .7s linear infinite;
+  animation: nowLoading .7s linear infinite;
+}
+[data-unitySyncData-parts="loadOverlay"] .elLoadingState .elProgressState,
+[data-unitySyncData-parts="loadOverlay"] .elLoadingState .elProgressPercent {
+  display: inline-block;
+  margin-left: 50px;
+  width: 200px;
+}
+[data-unitySyncData-parts="loadOverlay"] .elLoadingState .elProgressState {
+  text-align: left;
+}
+[data-unitySyncData-parts="loadOverlay"] .elLoadingState .elProgressPercent {
+  display: inline-block;
+  width: 200px;
+  height: 5px;
+  background: #666;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+}
+[data-unitySyncData-parts="loadOverlay"] .elLoadingState .elProgressPercent span {
+  display: block;
+  width: 0%;
+  height: inherit;
+  background: #fff;
+  text-indent: 210px;
+  line-height: 7px;
+  text-align: right;
+  -webkit-transition: width linear .4s;
+          transition: width linear .4s;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance {
+  position: absolute;
+  width: 400px;
+  height: 80%;
+  padding: 19px;
+  border: 1px solid #666;
+  top: 10%;
+  left: 50%;
+  margin-left: -200px;
+  color: #fff;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance[aria-hidden="true"] {
+  display: none;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance h2 {
+  position: relative;
+  font-weight: bold;
+  font-size: 18px;
+  color: #f88;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance h2:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 2px solid #f88;
+  border-radius: 50%;
+  top: 50%;
+  left: 0;
+  margin-top: -14px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance h2 span {
+  position: relative;
+  display: block;
+  padding-left: 37px;
+  line-height: 28px;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance h2 span:before, [data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance h2 span:after {
+  content: '';
+  display: block;
+  position: absolute;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance h2 span:before {
+  border-top: 10px solid #f88;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-radius: 5px 5px 0 0;
+  top: 7px;
+  left: 11px;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance h2 span:after {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #f88;
+  left: 12px;
+  bottom: 6px;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance .elErrorMessage {
+  margin-top: 20px;
+  line-height: 1;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance .elErrorMessage + .elRetryButton {
+  margin-top: 30px;
+  padding-top: 29px;
+  border-top: 1px solid #666;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance .elIDInput {
+  margin-top: 30px;
+  padding-top: 29px;
+  border-top: 1px solid #666;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance .elIDInput li:first-child {
+  margin-top: -10px;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance .elIDInput dl {
+  overflow: hidden;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance .elIDInput dt, [data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance .elIDInput dd {
+  margin-top: 10px;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance .elIDInput dt {
+  float: left;
+  line-height: 25px;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance .elIDInput dd {
+  margin-left: 6em;
+  height: 25px;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance .elIDInput dd span {
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: #fff;
+  width: 100%;
+  height: inherit;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance .elIDInput dd input {
+  width: 100%;
+  height: 100%;
+  padding: 0 5px;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance .elRetryButton {
+  margin-top: 20px;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance .elRetryButton p {
+  text-align: center;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance .elRetryButton p button {
+  -webkit-appearance: none;
+  appearance: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #fff;
+  font-size: 14px;
+  padding: 8px 20px;
+}
+[data-unitySyncData-parts="loadOverlay"] .elErrorAvoidance .elRetryButton p button span {
+  line-height: 1;
+}
+
+[data-libDragAndDrop-parts="dropOverlay"] {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+}
+
+@-webkit-keyframes nowCommentAnimation {
   0% {
     background: #fff;
   }
@@ -762,5 +1145,55 @@ body .elPulldownHide {
   }
   100% {
     background: #ffc;
+  }
+}
+@-webkit-keyframes addedCommentAnimation {
+  0% {
+    background: #ff9000;
+  }
+  100% {
+    background: #fff;
+  }
+}
+@-ms-keyframes addedCommentAnimation {
+  0% {
+    background: #ff9000;
+  }
+  100% {
+    background: #fff;
+  }
+}
+@keyframes addedCommentAnimation {
+  0% {
+    background: #ff9000;
+  }
+  100% {
+    background: #fff;
+  }
+}
+@-webkit-keyframes nowLoading {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-ms-keyframes nowLoading {
+  0% {
+    -ms-transform: rotate(0deg);
+  }
+  100% {
+    -ms-transform: rotate(360deg);
+  }
+}
+@keyframes nowLoading {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
   }
 }
