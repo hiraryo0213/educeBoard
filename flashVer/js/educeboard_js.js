@@ -131,7 +131,7 @@ function loginHandler(){
 
 		console.log(xml);
 
-		var loginJadge = $(xml).find('auth');
+		var loginJadge = $(xml).find('Auth').text();
 
 		console.log(loginJadge);
 
@@ -140,19 +140,16 @@ function loginHandler(){
 			return;
 		}
 
-		return;
+		if(loginJadge == "true"){
+			alert('パスワードが違います。');
+		}
+		else{
+			sessionSelectHandler();
+		}
 
 	});
 
-	//debug
-
-	// if()
-	// if(loginJadge == "true"){
-	// 	alert('パスワードが違います。');
-	// }
-	// else{
-	// 	sessionSelectHandler();
-	// }
+	
 }
 
 /*---ログイン画面部分終了---*/
@@ -164,104 +161,113 @@ function sessionSelectHandler(){
 	sessionListMaker(sessionLoader(cid,uid));*/
 	//$("#main").children("div").remove();
 	//flashLoader();
-	var simulation = simulationLoader(cid,uid).documentElement.getElementsByTagName("simulation");
-	var str = '<section id="id_select"><nav id="sim_select"><h1>シミュレーション一覧</h1><ul class="sim">';
-	for(var i = 0; i < simulation.length; i++){
-		str += '<li><p class="sim_name">';
-		str += simulation[i].getElementsByTagName("sim_name")[0].childNodes[0].nodeValue;
-		str += '</p><ul class="session">';
-		var session = simulation[i].getElementsByTagName("session");
-		for(var j = 0; j < session.length; j++){
-			str += '<li><p class="session_name" value="';
-			str += session[j].getElementsByTagName("session_id")[0].childNodes[0].nodeValue;;
-			str += '">';
-			str += session[j].getElementsByTagName("session_name")[0].childNodes[0].nodeValue;
-			str += '</p><ul class="trial">';
-			var trial = session[j].getElementsByTagName("trial");
-			for(var k = 0; k < trial.length; k++){
-				var trial_id = trial[k].getElementsByTagName("trial_id")[0].childNodes[0].nodeValue;
-				str += '<li><p class="trial_name" value="';
-				str += trial_id;
-				str += '"><span>';
-				str += trial_id;
-				str += '回</span><span>';
-				str += trial[k].getElementsByTagName("timestamp")[0].childNodes[0].nodeValue;
-				str += '</span></p></li>';
+
+	XMLLoader(xmlURL.simulation, {cid: cid, uid: uid}).done(function(data){
+
+		var xml = xmlChecker(data);
+
+		console.log(xml);
+
+		var simulation = xml.documentElement.getElementsByTagName("simulation");
+		var str = '<section id="id_select"><nav id="sim_select"><h1>シミュレーション一覧</h1><ul class="sim">';
+		for(var i = 0; i < simulation.length; i++){
+			str += '<li><p class="sim_name">';
+			str += simulation[i].getElementsByTagName("sim_name")[0].childNodes[0].nodeValue;
+			str += '</p><ul class="session">';
+			var session = simulation[i].getElementsByTagName("session");
+			for(var j = 0; j < session.length; j++){
+				str += '<li><p class="session_name" value="';
+				str += session[j].getElementsByTagName("session_id")[0].childNodes[0].nodeValue;;
+				str += '">';
+				str += session[j].getElementsByTagName("session_name")[0].childNodes[0].nodeValue;
+				str += '</p><ul class="trial">';
+				var trial = session[j].getElementsByTagName("trial");
+				for(var k = 0; k < trial.length; k++){
+					var trial_id = trial[k].getElementsByTagName("trial_id")[0].childNodes[0].nodeValue;
+					str += '<li><p class="trial_name" value="';
+					str += trial_id;
+					str += '"><span>';
+					str += trial_id;
+					str += '回</span><span>';
+					str += trial[k].getElementsByTagName("timestamp")[0].childNodes[0].nodeValue;
+					str += '</span></p></li>';
+				}
+				str += '</ul></li>';
 			}
 			str += '</ul></li>';
 		}
-		str += '</ul></li>';
-	}
-	str += '</ul></nav></section>';
-	
-	$("body").append(str);
-	
-	//表示アニメーション
-	$("#id_select").animate({opacity:"1"},{duration:400,complete:function(){$("#pass").val('');}});
-	$("#sim_select").delay(200).animate({top:"10%",opacity:"1"},500);
-	
-	//一覧枠の外をクリックすると消える動作
-	var isListHover = false;
-	$("#sim_select").hover(
-		function(){isListHover = true;},
-		function(){isListHover = false;}
-	);
-	$("#id_select").click(function(){
-		if(!isListHover){
-			$(this).delay(200).animate({opacity:"0"},{duration:400,complete:function(){$(this).remove();}});
-			$("#sim_select").animate({top:"20%",opacity:"0"},500);
-			$("#pass").select();
-		}
-	});
-	
-	//リストの動作
-	$("p.sim_name").click(function(){
-		$("p.sim_name").next("ul").slideUp();
-		$("p.sim_name").css("background-color","#FFF");
+		str += '</ul></nav></section>';
+		
+		$("body").append(str);
+		
+		//表示アニメーション
+		$("#id_select").animate({opacity:"1"},{duration:400,complete:function(){$("#pass").val('');}});
+		$("#sim_select").delay(200).animate({top:"10%",opacity:"1"},500);
+		
+		//一覧枠の外をクリックすると消える動作
+		var isListHover = false;
+		$("#sim_select").hover(
+			function(){isListHover = true;},
+			function(){isListHover = false;}
+		);
+		$("#id_select").click(function(){
+			if(!isListHover){
+				$(this).delay(200).animate({opacity:"0"},{duration:400,complete:function(){$(this).remove();}});
+				$("#sim_select").animate({top:"20%",opacity:"0"},500);
+				$("#pass").select();
+			}
+		});
+		
+		//リストの動作
+		$("p.sim_name").click(function(){
+			$("p.sim_name").next("ul").slideUp();
+			$("p.sim_name").css("background-color","#FFF");
+			$("p.sim_name").hover(function(){
+				$(this).css("background-color","#CFC");
+				},function(){
+				$(this).css("background-color","#FFF");
+			});
+			$(this).unbind("hover");
+			$(this).next("ul").slideToggle();
+			$(this).css("background-color","#CFC");
+			$("p.session_name").next().slideUp();
+			$("p.session_name").css("background-color","#FFF");
+		});
+		
 		$("p.sim_name").hover(function(){
 			$(this).css("background-color","#CFC");
-			},function(){
+		},function(){
 			$(this).css("background-color","#FFF");
 		});
-		$(this).unbind("hover");
-		$(this).next("ul").slideToggle();
-		$(this).css("background-color","#CFC");
-		$("p.session_name").next().slideUp();
-		$("p.session_name").css("background-color","#FFF");
-	});
-	
-	$("p.sim_name").hover(function(){
-		$(this).css("background-color","#CFC");
-	},function(){
-		$(this).css("background-color","#FFF");
-	});
-	
-	$("p.session_name").click(function(){
-		$("p.session_name").next("ul").slideUp();
-		$("p.session_name").css("background-color","#FFF");
+		
+		$("p.session_name").click(function(){
+			$("p.session_name").next("ul").slideUp();
+			$("p.session_name").css("background-color","#FFF");
+			$("p.session_name").hover(function(){
+				$(this).css("background-color","#FC6");
+				},function(){
+				$(this).css("background-color","#FFF");
+			});
+			$(this).unbind("hover");
+			$(this).next("ul").slideToggle();
+			$(this).css("background-color","#FC6");
+			sid = $(this).attr("value");
+		});
+		
 		$("p.session_name").hover(function(){
 			$(this).css("background-color","#FC6");
-			},function(){
+		},function(){
 			$(this).css("background-color","#FFF");
 		});
-		$(this).unbind("hover");
-		$(this).next("ul").slideToggle();
-		$(this).css("background-color","#FC6");
-		sid = $(this).attr("value");
-	});
+		
+		$("p.trial_name").click(function(){
+			tid = $(this).attr("value");
+			$("#login").remove();
+			$("#id_select").delay(200).animate({opacity:"0"},{duration:400,complete:function(){$(this).remove();flashLoader();}});
+			$("#sim_select").animate({top:"280px",opacity:"0"},500);
+		});
+	})
 	
-	$("p.session_name").hover(function(){
-		$(this).css("background-color","#FC6");
-	},function(){
-		$(this).css("background-color","#FFF");
-	});
-	
-	$("p.trial_name").click(function(){
-		tid = $(this).attr("value");
-		$("#login").remove();
-		$("#id_select").delay(200).animate({opacity:"0"},{duration:400,complete:function(){$(this).remove();flashLoader();}});
-		$("#sim_select").animate({top:"280px",opacity:"0"},500);
-	});
 }
 
 function flashLoader(){
@@ -415,10 +421,20 @@ function xmlChecker(data){
 
 		_xml = parser.parseFromString(data.responseText, 'application/xml');
 	
+	}else if(typeof data === 'string' && window.DOMParser){
+
+		var parser = new DOMParser();
+
+		_xml = parser.parseFromString(data, 'application/xml');
+
 	}else if(typeof data.responseXML === 'object'){
 
 		_xml = data.responseXML;
 
+
+	}else if(typeof data === 'object'){
+
+		_xml = data;
 
 	}else{
 

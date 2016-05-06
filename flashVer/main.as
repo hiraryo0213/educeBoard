@@ -179,7 +179,7 @@ import flash.geom.ColorTransform
 			loadstatus_text = "人形データ";
 			
 			//読み込むXMLを吐き出すURLを変数に格納
-			var xmlURL:String = "http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/readMarkersLocator.php?xml=1&session_id=" + session_id + "&tid=" + tid;
+			var xmlURL:String = "http://pb.fm.senshu-u.ac.jp/~tmochi/educeboard/readMarkersLocator2.php?xml=1&session_id=" + session_id + "&tid=" + tid;
 			//var xmlURL:String = "./readMarkersLocator.xml";
 			//URLRequestにURLを格納
 			xml_urlRequest.url = xmlURL;
